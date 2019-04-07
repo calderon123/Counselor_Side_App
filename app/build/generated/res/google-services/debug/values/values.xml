@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="firebase_database_url" translatable="false">https://realtimechat-a7d48.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">228148733447</string>
+    <string name="google_api_key" translatable="false">AIzaSyAaLsaWiJ0rwWsxOcviErWAgO8Zz0jjj5E</string>
+    <string name="google_app_id" translatable="false">1:228148733447:android:87ec60f5fd6689c5</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAaLsaWiJ0rwWsxOcviErWAgO8Zz0jjj5E</string>
+    <string name="google_storage_bucket" translatable="false">realtimechat-a7d48.appspot.com</string>
+    <string name="project_id" translatable="false">realtimechat-a7d48</string>
+</resources>

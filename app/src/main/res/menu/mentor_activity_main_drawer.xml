@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/find_mentor"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Find mentor" />
+        <item
+            android:id="@+id/send_report"
+            android:icon="@drawable/ic_report_problem_black_24dp"
+            android:title="Send Report" />
+    </group>
+
+    <item android:title="Account">
+        <menu>
+            <item
+                android:id="@+id/view_profile"
+                android:icon="@drawable/ic_account_circle_black_24dp"
+                android:title="View Profile" />
+            <item
+                android:id="@+id/logout_btn"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="Sign Out" />
+        </menu>
+
+    </item>
+
+</menu>
