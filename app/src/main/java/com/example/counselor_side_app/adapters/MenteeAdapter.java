@@ -1,6 +1,7 @@
 package com.example.counselor_side_app.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.counselor_side_app.activities.MessageActivity;
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.models.Mentees;
 import com.example.counselor_side_app.models.UserMentee;
@@ -64,15 +66,15 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 //            viewHolder.img_off.setVisibility(View.GONE);
 //        }
 
-//        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(mContext, MessageActivity.class);
-//                intent.putExtra("id", counselors.getId());
-//                mContext.startActivity(intent );
-//            }
-//        });
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(mContext, MessageActivity.class);
+                intent.putExtra("id", mentees.getId());
+                mContext.startActivity(intent );
+            }
+        });
     }
 
     @Override

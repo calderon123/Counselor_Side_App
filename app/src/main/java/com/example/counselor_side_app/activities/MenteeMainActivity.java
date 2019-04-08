@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.fragments.MenteeListFragment;
@@ -70,10 +71,13 @@ public class MenteeMainActivity extends AppCompatActivity
                 expertise = findViewById(R.id.expertise);
                 CircleImageView imageView =  findViewById(R.id.imageView);
 
-                assert userMentor != null;
-                fullname1.setText(userMentor.getFullname());
-                expertise.setText(userMentor.getExpertise());
-
+               if (fullname1 != null && expertise != null) {
+                   fullname1.setText(userMentor.getFullname());
+                   expertise.setText(userMentor.getExpertise());
+               }else {
+                   fullname1.setText(null);
+                   expertise.setText(null);
+               }
                 imageView.setImageResource(R.mipmap.ic_launcher);
 //
 //                Glide.with(getApplicationContext()).load(firebaseUser.getPhotoUrl()).into(imageView);
@@ -209,24 +213,24 @@ public class MenteeMainActivity extends AppCompatActivity
 
         }
       }
-//    private void userid(String userid){
-//        DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference("UserMentor").
-//                child(firebaseUser.getUid());
-//
-//        HashMap<String,Object> hashMap= new HashMap<>();
-//        hashMap.put("id",firebaseUser.getUid());
-//
-//        databaseReference.updateChildren(hashMap);
-//
-//    }
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//        userid(firebaseUser.getUid());
-//    }
-//    @Override
-//    protected  void onPause(){
-//        super.onPause();
-//        status("offline");
-//    }
+    private void status(String status){
+        DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference("UserMentor").
+                child(firebaseUser.getUid());
+
+        HashMap<String,Object> hashMap= new HashMap<>();
+        hashMap.put("status",status);
+
+        databaseReference.updateChildren(hashMap);
+
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        status("online");
+    }
+    @Override
+    protected  void onPause(){
+        super.onPause();
+        status("offline");
+    }
 }

@@ -21,6 +21,14 @@
             "package_name": "com.example.counselor_side_app",
             "certificate_hash": "ed5b1f7cdb0269ce2b8cef9ffb1491a7682829ef"
           }
+        },
+        {
+          "client_id": "228148733447-74j2ofk7i3qaf6hr3n9h22uk2pcua54v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.counselor_side_app",
+            "certificate_hash": "a0a2410bd1577a99692ea3fd0eaacdee1d9b7d30"
+          }
         }
       ],
       "api_key": [
@@ -118,6 +126,14 @@
           "android_info": {
             "package_name": "com.example.realtimechatapp",
             "certificate_hash": "6642e9f32e487c388e80325408e7a4d55adf7d22"
+          }
+        },
+        {
+          "client_id": "228148733447-e9q5r76u2cukkul01034heancbal174f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.realtimechatapp",
+            "certificate_hash": "86bb5cf3c8f0c0d5306c0de3d0d30ee4b6a22100"
           }
         }
       ],

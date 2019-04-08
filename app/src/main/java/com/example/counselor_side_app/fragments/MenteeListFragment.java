@@ -59,14 +59,12 @@ public class MenteeListFragment extends Fragment {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
                 .child("Add").child(firebaseUser.getUid()).child("mentees");
 
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                     Mentees mentees= snapshot.getValue(Mentees.class);
-
 
                     mUsers.add(mentees);
 

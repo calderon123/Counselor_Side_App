@@ -75,7 +75,6 @@ public class LoginActivityMentee extends AppCompatActivity {
 
                                     progressBar.setVisibility(view.GONE);
                                     if (task.isSuccessful()) {
-                                        updateID();
                                         Intent intent = new Intent(LoginActivityMentee.this, MenteeMainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
@@ -89,17 +88,6 @@ public class LoginActivityMentee extends AppCompatActivity {
                 }
             }
         });
-
-
-    }
-
-
-    private void updateID(){
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("UserMentor").
-                child(firebaseUser.getUid());
-                databaseReference.ad
-
 
 
     }
