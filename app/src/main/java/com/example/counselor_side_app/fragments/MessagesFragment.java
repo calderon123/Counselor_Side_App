@@ -24,8 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("ALL")
+
 public class MessagesFragment extends Fragment {
+
 
     private RecyclerView recyclerView;
 
@@ -37,22 +38,21 @@ public class MessagesFragment extends Fragment {
     DatabaseReference reference;
     private List<Mentees> mUsers;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_messages, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_messages, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        mUserslist = new ArrayList<>();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Chats");
-
-        mUserslist = new ArrayList<>();
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -78,10 +78,9 @@ public class MessagesFragment extends Fragment {
             }
         });
 
-        return view;
-
-
+        return  view;
     }
+
     private void readChats(){
 
         mUsers = new ArrayList<>();
@@ -95,9 +94,9 @@ public class MessagesFragment extends Fragment {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Mentees counselors = snapshot.getValue(Mentees.class);
-
-                    for (String id: mUserslist ){
-                        if (counselors.getId().equals(id)){
+//                    String id: mUserslist
+                    for (int i=0; i<mUserslist.size(); i++){
+                        if (counselors.getId().equals(i)){
                             if (mUsers.size() != 0){
                                 for (Mentees counselors1 : mUsers){
                                     if (!counselors.getId().equals(counselors1.getId())){
@@ -111,7 +110,7 @@ public class MessagesFragment extends Fragment {
 
                     }
                 }
-                menteeAdapter = new MenteeAdapter(getContext(),mUsers);
+                menteeAdapter = new MenteeAdapter(getContext(),mUsers, true);
                 recyclerView.setAdapter(menteeAdapter);
             }
 
@@ -121,5 +120,4 @@ public class MessagesFragment extends Fragment {
             }
         });
     }
-
 }

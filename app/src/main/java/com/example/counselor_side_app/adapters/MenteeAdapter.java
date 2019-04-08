@@ -29,10 +29,10 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 
 
 
-    public MenteeAdapter(Context mcontext, List<Mentees> mUsers){
+    public MenteeAdapter(Context mcontext, List<Mentees> mUsers,boolean ischat){
         this.mContext = mcontext;
         this.mUsers = mUsers;
-
+        this.ischat = ischat;
     }
 
     @NonNull
@@ -84,7 +84,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView fullname,email;
+        public TextView email;
         public CircleImageView profile_image;
         private CircleImageView img_off;
         private CircleImageView img_on;
@@ -94,7 +94,6 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
             super(itemView);
 
             profile_image = itemView.findViewById(R.id.profile_image);
-            fullname = itemView.findViewById(R.id.fullname);
             email = itemView.findViewById(R.id.email);
             img_off = itemView.findViewById(R.id.img_off);
             img_on= itemView.findViewById(R.id.img_on);

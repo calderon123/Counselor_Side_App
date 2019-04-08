@@ -69,7 +69,7 @@ public class MenteeListFragment extends Fragment {
                     mUsers.add(mentees);
 
                 }
-                menteeAdapter = new MenteeAdapter(getContext(), mUsers );
+                menteeAdapter = new MenteeAdapter(getContext(), mUsers ,true);
                 recyclerView.setAdapter(menteeAdapter);
             }
 
