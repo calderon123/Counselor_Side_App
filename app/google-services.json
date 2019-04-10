@@ -29,6 +29,18 @@
             "package_name": "com.example.counselor_side_app",
             "certificate_hash": "a0a2410bd1577a99692ea3fd0eaacdee1d9b7d30"
           }
+        },
+        {
+          "client_id": "228148733447-bepkjld38noiecj1o9bu2ek07j0lqhf0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.counselor_side_app",
+            "certificate_hash": "8215d4a26eaf0d3bc84afabfde33f1cef9da2865"
+          }
+        },
+        {
+          "client_id": "228148733447-3ustqirb0ub8bdjmntbme1b57o8q41i9.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -54,7 +66,12 @@
           "package_name": "com.example.myapplication"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "228148733447-3ustqirb0ub8bdjmntbme1b57o8q41i9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAaLsaWiJ0rwWsxOcviErWAgO8Zz0jjj5E"
@@ -86,6 +103,10 @@
             "package_name": "com.example.realtimeapp",
             "certificate_hash": "ed5b1f7cdb0269ce2b8cef9ffb1491a7682829ef"
           }
+        },
+        {
+          "client_id": "228148733447-3ustqirb0ub8bdjmntbme1b57o8q41i9.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -135,6 +156,10 @@
             "package_name": "com.example.realtimechatapp",
             "certificate_hash": "86bb5cf3c8f0c0d5306c0de3d0d30ee4b6a22100"
           }
+        },
+        {
+          "client_id": "228148733447-3ustqirb0ub8bdjmntbme1b57o8q41i9.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -160,7 +185,12 @@
           "package_name": "com.realtimeapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "228148733447-3ustqirb0ub8bdjmntbme1b57o8q41i9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAaLsaWiJ0rwWsxOcviErWAgO8Zz0jjj5E"

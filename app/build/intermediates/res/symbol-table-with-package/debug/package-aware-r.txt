@@ -1088,6 +1088,7 @@ drawable background_right
 drawable bakground_left
 drawable border
 drawable border_layout
+drawable button_background
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -1116,6 +1117,8 @@ drawable design_snackbar_background
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_account_circle_black_24dp
+drawable ic_add_a_photo_black_24dp
+drawable ic_add_black_24dp
 drawable ic_arrow_back_black_24dp
 drawable ic_exit_to_app_black_24dp
 drawable ic_home_black_24dp
@@ -1133,6 +1136,7 @@ drawable ic_mtrl_chip_close_circle
 drawable ic_report_problem_black_24dp
 drawable ic_search_black_24dp
 drawable ic_send_black_24dp
+drawable image_border
 drawable met_ic_clear
 drawable mrb_star_border_icon_black_36dp
 drawable mrb_star_icon_black_36dp
@@ -1209,6 +1213,7 @@ id center_horizontal
 id center_vertical
 id chains
 id checkbox
+id choose
 id chronometer
 id clip_horizontal
 id clip_vertical
@@ -1248,7 +1253,6 @@ id fill
 id fill_horizontal
 id fill_vertical
 id filled
-id find_mentor
 id fixed
 id forever
 id fragment_cont
@@ -1402,7 +1406,6 @@ id up
 id useLogo
 id view_offset_helper
 id view_pager
-id view_profile
 id visible
 id wide
 id withText
@@ -1575,6 +1578,7 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
+string default_web_client_id
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string firebase_database_url

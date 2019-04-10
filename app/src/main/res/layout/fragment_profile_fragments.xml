@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/profile_fragment"
     android:padding="8dp"
-    tools:context=".MainActivities.fragments.ProfileFragments">
+    tools:context=".fragments.ProfileFragments">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -24,22 +24,32 @@
                 android:layout_height="wrap_content" />
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
+                android:background="@drawable/image_border"
                 android:layout_height="100dp"
                 android:id="@+id/profile_image"
                 android:layout_marginTop="50dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_add_black_24dp"
                 android:layout_centerHorizontal="true"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:id="@+id/choose"
+                android:visibility="invisible"
+                android:layout_below="@+id/profile_image"
+                android:text="Update Photo"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FULLNAME"
                 android:id="@+id/fullname"
-                android:layout_below="@+id/profile_image"
-                android:layout_marginTop="15dp"
+                android:layout_centerVertical="true"
+                android:layout_below="@+id/choose"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"
-                android:textSize="10dp"/>
+                android:textSize="18dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

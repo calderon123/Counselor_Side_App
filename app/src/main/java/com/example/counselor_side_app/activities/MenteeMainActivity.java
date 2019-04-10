@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.fragments.MenteeListFragment;
 import com.example.counselor_side_app.fragments.MessagesFragment;
@@ -45,7 +46,7 @@ public class MenteeMainActivity extends AppCompatActivity
     private MenuItem logout_btn;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private TextView fullname1,expertise;
-
+    DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
 
     @Override
@@ -59,7 +60,7 @@ public class MenteeMainActivity extends AppCompatActivity
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("UserMentor").
+         databaseReference = FirebaseDatabase.getInstance().getReference("UserMentor").
                 child(firebaseUser.getUid());
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -71,16 +72,21 @@ public class MenteeMainActivity extends AppCompatActivity
                 expertise = findViewById(R.id.expertise);
                 CircleImageView imageView =  findViewById(R.id.imageView);
 
+
                if (fullname1 != null && expertise != null) {
                    fullname1.setText(userMentor.getFullname());
                    expertise.setText(userMentor.getExpertise());
+
                }else {
                    fullname1.setText(null);
                    expertise.setText(null);
                }
-                imageView.setImageResource(R.mipmap.ic_launcher);
-//
-//                Glide.with(getApplicationContext()).load(firebaseUser.getPhotoUrl()).into(imageView);
+                 if (userMentor.getImageUrl().equals("default")){
+                    imageView.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
+                }else {
+                     Glide.with(getApplicationContext()).load(userMentor.getImageUrl()).into(imageView);
+
+                }
 
             }
             @Override
@@ -157,8 +163,6 @@ public class MenteeMainActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.send_report) {
 
-        }else if (id == R.id.view_profile) {
-            fragment = new ProfileFragments();
         }else if (id == R.id.logout_btn){
             auth.signOut();
             finish();

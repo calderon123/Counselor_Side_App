@@ -3,19 +3,38 @@ package com.example.counselor_side_app.models;
 public class UserMentor {
 
     private String id;
+    private String status;
+    private String imageURL;
+    private String fullname;
+    private String expertise;
+    private String rate;
+    private String availability;
+    private String email;
+    private String date_reg;
 
-    public UserMentor(String id) {
+    public UserMentor(){
+
+    }
+
+    public UserMentor(String id, String status, String imageURL, String fullname, String expertise, String rate, String availability, String email, String date_reg) {
+        this.id = id;
+        this.status = status;
+        this.imageURL = imageURL;
+        this.fullname = fullname;
+        this.expertise = expertise;
+        this.rate = rate;
+        this.availability = availability;
+        this.email = email;
+        this.date_reg = date_reg;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
-
-    public String getImage() {
-        return Image;
-    }
-
-    public void setImage(String image) {
-        Image = image;
-    }
-
 
     public String getStatus() {
         return status;
@@ -25,42 +44,12 @@ public class UserMentor {
         this.status = status;
     }
 
-    private String status;
-    private String Image;
-    private String fullname;
-    private String expertise;
-    private String rate;
-    private String availability;
-    private String email;
-    private String date_reg;
-
-    public UserMentor(String id, String fullname, String expertise, String rate, String availability, String date_reg, String email) {
-        this.id = id;
-        this.fullname = fullname;
-        this.expertise = expertise;
-        this.rate = rate;
-        this.availability = availability;
-        this.date_reg = date_reg;
-        this.email = email;
-    }
-    public UserMentor(){
-
+    public String getImageUrl() {
+        return imageURL;
     }
 
-    public String getDate_reg() {
-        return date_reg;
-    }
-
-    public void setDate_reg(String date_reg) {
-        this.date_reg = date_reg;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String  id) {
-        this.id = id;
+    public void setImageUrl(String imageUrl) {
+        this.imageURL = imageUrl;
     }
 
     public String getFullname() {
@@ -101,5 +90,13 @@ public class UserMentor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDate_reg() {
+        return date_reg;
+    }
+
+    public void setDate_reg(String date_reg) {
+        this.date_reg = date_reg;
     }
 }

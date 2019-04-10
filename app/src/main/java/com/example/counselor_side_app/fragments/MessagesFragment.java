@@ -95,8 +95,8 @@ public class MessagesFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Mentees counselors = snapshot.getValue(Mentees.class);
 //                    String id: mUserslist
-                    for (int i=0; i<mUserslist.size(); i++){
-                        if (counselors.getId().equals(i)){
+                    for ( String id: mUserslist){
+                        if (counselors.getId().equals(id)){
                             if (mUsers.size() != 0){
                                 for (Mentees counselors1 : mUsers){
                                     if (!counselors.getId().equals(counselors1.getId())){
