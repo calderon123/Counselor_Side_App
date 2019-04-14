@@ -165,7 +165,7 @@ public class ProfileFragments extends Fragment {
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
-                        databaseReference = FirebaseDatabase.getInstance().getReference("UserMentee").child(firebaseUser.getUid());
+                        databaseReference = FirebaseDatabase.getInstance().getReference("UserMentor").child(firebaseUser.getUid());
 
                         HashMap<String,Object> map = new HashMap<>();
 
