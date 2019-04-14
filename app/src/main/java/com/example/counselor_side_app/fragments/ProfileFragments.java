@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,18 +43,17 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragments extends Fragment {
 
-    private TextView fullname,expertise;
+    private TextView fullname,expertise,count_counselors;
     private CircleImageView profile_image;
-    TextView choose_image;
-
-    StorageReference storageReference;
-    private  static final int  IMAGE_REQUEST = 1;
-    static int PreqCode =1;
-    private Uri imageUri;
-    private StorageTask uploadTask;
+    private ImageView card_background;
+    private Button update_photo;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
-
+    private int countCounselors = 0;
+    StorageReference storageReference;
+    private  static final int  IMAGE_REQUEST = 1;
+    private Uri imageUri;
+    private StorageTask uploadTask;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,33 +61,33 @@ public class ProfileFragments extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_profile_fragments, container, false);
 
         profile_image = view.findViewById(R.id.profile_image);
-          fullname = view.findViewById(R.id.fullname);
-          expertise = view.findViewById(R.id.expertise);
-          choose_image = view.findViewById(R.id.choose);
+        fullname = view.findViewById(R.id.fullname);
+        expertise = view.findViewById(R.id.expertise);
+        card_background = view.findViewById(R.id.card_background);
+        count_counselors = view.findViewById(R.id.count_counselors);
+        update_photo = view.findViewById(R.id.update_photo);
 
-          storageReference = FirebaseStorage.getInstance().getReference("uploads");
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("UserMentor").child(firebaseUser.getUid());
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("Add")
+                .child(firebaseUser.getUid())
+                .child("mentees");
+
+        databaseReference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserMentor userMentor = dataSnapshot.getValue(UserMentor.class);
+                if (dataSnapshot.exists()){
+                    countCounselors = (int) dataSnapshot.getChildrenCount();
+                    if (countCounselors > 1){
+                        count_counselors.setText("Mentees count: " +Integer.toString(countCounselors)+ " mentees");
+                    }else if(countCounselors == 1) {
+                        count_counselors.setText("Mentees count: " +Integer.toString(countCounselors) + " mentee");
+                    }
 
-                assert userMentor != null;
-
-                fullname.setText(userMentor.getFullname());
-                expertise.setText(userMentor.getExpertise());
-
-                if (userMentor.getImageUrl().equals("default")){
-                    choose_image.setVisibility(View.VISIBLE);
-                    profile_image.setImageResource(R.drawable.ic_add_black_24dp);
                 }else {
-                    choose_image.setVisibility(View.INVISIBLE);
-                    Glide.with(getContext()).load(userMentor.getImageUrl()).into(profile_image);
-
+                    count_counselors.setText("No Mentees");
                 }
-              }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -95,13 +95,36 @@ public class ProfileFragments extends Fragment {
             }
         });
 
-        profile_image.setOnClickListener(new View.OnClickListener() {
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("UserMentor").child(firebaseUser.getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                UserMentor userMentee = dataSnapshot.getValue(UserMentor.class);
+
+
+                assert userMentee != null;
+                fullname.setText(userMentee.getFullname());
+                expertise.setText(userMentee.getExpertise());
+                Glide.with(getContext()).load(userMentee.getImageUrl()).into(card_background);
+                Glide.with(getContext()).load(userMentee.getImageUrl()).into(profile_image);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        storageReference = FirebaseStorage.getInstance().getReference("images");
+        update_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openImage();
             }
         });
-
         return view;
     }
 
@@ -142,7 +165,7 @@ public class ProfileFragments extends Fragment {
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
-                        databaseReference = FirebaseDatabase.getInstance().getReference("UserMentor").child(firebaseUser.getUid());
+                        databaseReference = FirebaseDatabase.getInstance().getReference("UserMentee").child(firebaseUser.getUid());
 
                         HashMap<String,Object> map = new HashMap<>();
 
@@ -174,7 +197,7 @@ public class ProfileFragments extends Fragment {
 
 
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK
-          && data != null && data.getData() != null){
+                && data != null && data.getData() != null){
             imageUri = data.getData();
 
             if (uploadTask !=null && uploadTask.isInProgress()){

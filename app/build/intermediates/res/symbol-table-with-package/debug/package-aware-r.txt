@@ -1086,8 +1086,10 @@ drawable avd_hide_password
 drawable avd_show_password
 drawable background_right
 drawable bakground_left
+drawable black_gradient
 drawable border
 drawable border_layout
+drawable btn_add_style
 drawable button_background
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
@@ -1201,11 +1203,13 @@ id blocking
 id bottom
 id bottom1
 id btn_add
+id btn_feedback
 id btn_login
 id btn_register
 id btn_send
 id buttonPanel
 id cancel_action
+id card_background
 id card_view
 id card_view1
 id center
@@ -1213,18 +1217,17 @@ id center_horizontal
 id center_vertical
 id chains
 id checkbox
-id choose
 id chronometer
 id clip_horizontal
 id clip_vertical
 id collapseActionView
-id comments
 id comments_retrieve
 id confirmpassword
 id container
 id content
 id contentPanel
 id coordinator
+id count_counselors
 id custom
 id customPanel
 id dark
@@ -1272,6 +1275,7 @@ id id
 id ifRoom
 id image
 id imageView
+id imageviews
 id img_off
 id img_on
 id info
@@ -1321,7 +1325,6 @@ id progress_circular
 id progress_horizontal
 id progressing
 id radio
-id ratingView
 id rating_retrieve
 id recycler_view
 id right
@@ -1383,6 +1386,7 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id text_input_password_toggle
+id text_seen
 id text_send
 id textinput_counter
 id textinput_error
@@ -1403,6 +1407,7 @@ id transition_transform
 id uniform
 id unlabeled
 id up
+id update_photo
 id useLogo
 id view_offset_helper
 id view_pager

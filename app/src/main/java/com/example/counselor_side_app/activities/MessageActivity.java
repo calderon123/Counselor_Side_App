@@ -1,9 +1,9 @@
 package com.example.counselor_side_app.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.adapters.MessageAdapter;
@@ -45,6 +44,11 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
+
+    ValueEventListener seenListener;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +112,7 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+        seenMessage(userid);
     }
     private  void sendMessage(String sender,String receiver, String message){
 
@@ -117,8 +122,33 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
+        hashMap.put("isseen", false);
 
-        databaseReference.child("Chats").push().setValue(hashMap);
+        databaseReference.
+                child("Chats").push().setValue(hashMap);
+    }
+
+    private void seenMessage(final String userid){
+        databaseReference= FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener= databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)){
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("isseen", true);
+                        snapshot.getRef().updateChildren(hashMap);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void readMessage(final String myid, final String userid, final String imageUrl){
@@ -145,5 +175,28 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void status(String status){
+
+        DatabaseReference databaseReference  =
+                FirebaseDatabase.getInstance().getReference("UserMentor").
+                        child(firebaseUser.getUid());
+
+        HashMap<String,Object> hashMap= new HashMap<>();
+        hashMap.put("status",status);
+
+        databaseReference.updateChildren(hashMap);
+
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        status("online");
+    }
+    @Override
+    protected  void onPause(){
+        super.onPause();
+        databaseReference.removeEventListener(seenListener);
+        status("offline");
     }
 }

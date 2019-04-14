@@ -19,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.counselor_side_app.R;
@@ -218,7 +217,9 @@ public class MenteeMainActivity extends AppCompatActivity
         }
       }
     private void status(String status){
-        DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference("UserMentor").
+
+        DatabaseReference databaseReference  =
+                FirebaseDatabase.getInstance().getReference("UserMentor").
                 child(firebaseUser.getUid());
 
         HashMap<String,Object> hashMap= new HashMap<>();

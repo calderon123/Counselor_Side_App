@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.models.Chat;
-import com.example.counselor_side_app.models.UserMentor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -25,7 +24,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private Context mContext;
     private List<Chat> mChat;
     public String imageurl;
-
+    public TextView text_seen;
     FirebaseUser firebaseUser;
 
     public MessageAdapter(Context mContext, List<Chat> mChat, String imageurl){
@@ -55,6 +54,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
 
+        if (i == mChat.size() -1){
+            if (chat.isIsseen()){
+                viewHolder.txt_seen.setText("Seen");
+            }else {
+                viewHolder.txt_seen.setText("Delivered");
+            }
+        }else {
+            viewHolder.txt_seen.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -64,13 +73,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView show_message;
+        public TextView show_message,txt_seen;
         public ImageView profile_image;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-
+            txt_seen = itemView.findViewById(R.id.text_seen);
             show_message = itemView.findViewById(R.id.show_message);
             profile_image = itemView.findViewById(R.id.profile_image);
 
