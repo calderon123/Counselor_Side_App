@@ -11,10 +11,14 @@ import android.widget.TextView;
 
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.activities.MessageActivity;
+import com.example.counselor_side_app.models.Chat;
 import com.example.counselor_side_app.models.Mentees;
 import com.example.counselor_side_app.models.UserMentee;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -30,7 +34,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
     private List<Mentees> mUsers;
     private boolean ischat;
     private String user_status;
-
+    String theLastMessage;
 
     public MenteeAdapter(Context mcontext, List<Mentees> mUsers,boolean ischat){
         this.mContext = mcontext;
@@ -56,6 +60,11 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 //        }else{
 //            Glide.with(mContext).load(userMentor.getImage()).into(viewHolder.profile_image);
 //        }
+        if (ischat){
+            lastMessage(mentees.getId() ,viewHolder.last_message);
+        }else {
+            viewHolder.last_message.setVisibility(View.GONE);
+        }
         FirebaseDatabase.getInstance().getReference("UserMentee").child(mentees.getId())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -91,7 +100,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView email;
+        public TextView email,last_message;
         public CircleImageView profile_image;
         private CircleImageView img_off;
         private CircleImageView img_on;
@@ -102,6 +111,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 
             profile_image = itemView.findViewById(R.id.profile_image);
             email = itemView.findViewById(R.id.email);
+            last_message = itemView.findViewById(R.id.last_message);
             img_off = itemView.findViewById(R.id.img_off);
             img_on= itemView.findViewById(R.id.img_on);
         }
@@ -121,6 +131,43 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 
             }
         }
+
+    }
+    private void lastMessage(final String userid, final TextView last_message){
+        theLastMessage = "default";
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ||
+                            chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())){
+                        theLastMessage = chat.getMessage();
+                    }
+
+                }
+                switch (theLastMessage){
+                    case "default":
+                        last_message.setText("NoMessage");
+                        break;
+
+
+                    default:
+                        last_message.setText(theLastMessage);
+                        break;
+                }
+                theLastMessage= "default";
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

@@ -4,22 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.counselor_side_app.activities.LoginActivityMentee">
-
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimaryDark"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+    tools:context=".MainActivities.activities.RegisterMenteeActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="100dp"
+
         android:gravity="center_horizontal"
         android:padding="16dp"
         android:orientation="vertical">
@@ -59,15 +51,23 @@
             android:layout_marginTop="10dp"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot your Password"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_gravity="end"
+            android:id="@+id/forgot_password"
+            android:textColor="@color/colorPrimaryDark"
+            />
 
     </LinearLayout>
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="330dp"
-        android:background="#9111"
-        android:paddingBottom="340dp"
-        android:layout_marginBottom="1dp"
-        android:visibility="gone"/>
+        android:layout_marginTop="100dp"
+        android:visibility="gone"
+        />
 </RelativeLayout>
