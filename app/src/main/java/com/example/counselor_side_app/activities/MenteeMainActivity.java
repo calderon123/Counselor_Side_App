@@ -67,7 +67,7 @@ public class MenteeMainActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserMentor userMentor = dataSnapshot.getValue(UserMentor.class);
 
-                fullname1 = findViewById(R.id.fullname);
+                fullname1 = findViewById(R.id.fullnam);
                 expertise = findViewById(R.id.expertise);
                 CircleImageView imageView =  findViewById(R.id.imageView);
 
