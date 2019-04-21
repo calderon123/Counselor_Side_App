@@ -4,7 +4,7 @@
             "outputFile": "C:\\Users\\xtian\\StudioProjects\\Counselor_App_Final\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v23\\values-v23.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9c96f16b10a523468563a3ca54de9e6a\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-2\\files-2.1\\6128b61b927fe57332157f3479d98168\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,19,32,33,34,35,36",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
@@ -15,7 +15,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-1\\files-1.1\\cardview-v7-28.0.0.aar\\6630164feb4c14430ecf1cbf126eb27e\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-2\\files-2.1\\d7de83e698b854bad87f0c664beeeb4a\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

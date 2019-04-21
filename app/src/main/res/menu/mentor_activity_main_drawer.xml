@@ -7,7 +7,11 @@
         <item
             android:id="@+id/send_report"
             android:icon="@drawable/ic_report_problem_black_24dp"
-            android:title="Send Report" />
+            android:title="Report Problem" />
+        <item
+            android:id="@+id/view_schedules"
+            android:icon="@drawable/ic_schedule_black_24dp"
+            android:title="Meet Schedules" />
     </group>
 
     <item android:title="Account">

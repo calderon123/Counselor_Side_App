@@ -6,6 +6,7 @@ public class Chat {
     private String sender;
     private String receiver;
     private String message;
+    private String time_sent;
     private boolean isseen;
 
 
@@ -13,14 +14,23 @@ public class Chat {
         this.sender = sender;
     }
 
-    public Chat(String sender, String receiver, String message, boolean isseen) {
+    public Chat(String sender, String receiver, String message, boolean isseen,String time_sent) {
         this.sender = sender;
         this.receiver = receiver;
         this.message = message;
         this.isseen = isseen;
+        this.time_sent = time_sent;
     }
     public Chat(){
 
+    }
+
+    public String getTime_sent() {
+        return time_sent;
+    }
+
+    public void setTime_sent(String time_sent) {
+        this.time_sent = time_sent;
     }
 
     public boolean isIsseen() {

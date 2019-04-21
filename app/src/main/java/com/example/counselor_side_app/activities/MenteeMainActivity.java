@@ -161,6 +161,8 @@ public class MenteeMainActivity extends AppCompatActivity
         int id = item.getItemId();
         Fragment fragment = null;
         if (id == R.id.send_report) {
+            startActivity(new Intent(MenteeMainActivity.this, ReportActivity.class));
+        }else if (id == R.id.view_schedules){
 
         }else if (id == R.id.logout_btn){
             auth.signOut();

@@ -1089,6 +1089,7 @@ drawable bakground_left
 drawable black_gradient
 drawable border
 drawable border_layout
+drawable border_schedule
 drawable btn_add_style
 drawable button_background
 drawable common_full_open_on_phone
@@ -1136,8 +1137,10 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_report_problem_black_24dp
+drawable ic_schedule_black_24dp
 drawable ic_search_black_24dp
 drawable ic_send_black_24dp
+drawable image_back
 drawable image_border
 drawable met_ic_clear
 drawable mrb_star_border_icon_black_36dp
@@ -1158,6 +1161,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable photo
+drawable profile_background
 drawable side_nav_bar
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -1203,11 +1207,15 @@ id blocking
 id bottom
 id bottom1
 id btn_add
+id btn_calendar
 id btn_feedback
 id btn_login
 id btn_register
 id btn_reset
 id btn_send
+id btn_send_report
+id btn_set_sched
+id btn_upload
 id buttonPanel
 id cancel_action
 id card_background
@@ -1232,6 +1240,7 @@ id count_counselors
 id custom
 id customPanel
 id dark
+id date_schedule
 id decor_content_parent
 id default_activity_button
 id design_bottom_sheet
@@ -1242,6 +1251,7 @@ id design_navigation_view
 id dimensions
 id direct
 id disableHome
+id dissmiss_dialog
 id drawer_layout
 id edit_query
 id email
@@ -1253,6 +1263,7 @@ id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
 id expertise
+id feedbackk_count
 id fill
 id fill_horizontal
 id fill_vertical
@@ -1277,6 +1288,7 @@ id id
 id ifRoom
 id image
 id imageView
+id image_uploaded
 id imageviews
 id img_off
 id img_on
@@ -1330,12 +1342,16 @@ id progressing
 id radio
 id rating_retrieve
 id recycler_view
+id rela
+id report_dscrpt
+id report_type
 id right
 id right_icon
 id right_side
 id save_image_matrix
 id save_non_transition_alpha
 id save_scale_type
+id schedule
 id screen
 id scroll
 id scrollIndicatorDown
@@ -1356,11 +1372,13 @@ id select_dialog_listview
 id selected
 id send_email
 id send_report
+id set_dscrpt
 id shortcut
 id showCustom
 id showHome
 id showTitle
 id show_message
+id sign_out
 id smallLabel
 id snackbar_action
 id snackbar_text
@@ -1389,6 +1407,7 @@ id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
+id textView
 id text_input_password_toggle
 id text_seen
 id text_send
@@ -1415,6 +1434,7 @@ id update_photo
 id useLogo
 id view_offset_helper
 id view_pager
+id view_schedules
 id visible
 id wide
 id withText
@@ -1473,6 +1493,7 @@ layout activity_mentee_main
 layout activity_mentor_profile
 layout activity_message
 layout activity_register_mentee
+layout activity_report
 layout activity_reset_password
 layout activity_start
 layout chat_item_left
@@ -1516,6 +1537,7 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout schedule_btn
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
@@ -1523,7 +1545,10 @@ layout support_simple_spinner_dropdown_item
 layout user_item
 menu mentor_activity_main_drawer
 menu mentor_main
+mipmap background_schedule
+mipmap background_schedule_round
 mipmap ic_launcher
+mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 string abc_action_bar_home_description
 string abc_action_bar_up_description

@@ -4,54 +4,47 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:id="@+id/bar_layout"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/MenuStyle">
-            <ImageView
-                android:src="@drawable/ic_arrow_back_black_24dp"
-                android:layout_width="30dp"
-                android:id="@+id/back"
-                android:layout_height="wrap_content" />
-
-        </android.support.v7.widget.Toolbar>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/card_view"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RelativeLayout
+                android:background="@drawable/profile_background"
+                android:id="@+id/card_view"
                 android:layout_width="match_parent"
                 android:padding="8dp"
                 android:layout_height="wrap_content">
-
+                <ImageView
+                    android:src="@drawable/ic_arrow_back_black_24dp"
+                    android:layout_width="30dp"
+                    android:id="@+id/back"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/bottom"
+                    android:padding="5dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/image_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:id="@+id/profile_image"
-
                     android:src="@mipmap/ic_launcher"
                     android:layout_centerHorizontal="true"/>
+                </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FULLNAME"
+                    android:text="Full Name"
                     android:id="@+id/fullname"
-                    android:layout_below="@+id/profile_image"
+                    android:layout_below="@+id/bottom"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"
+                    android:textColor="#ffff"
                     android:layout_centerHorizontal="true"
-                    android:textSize="18dp"/>
+                    android:textSize="25sp"/>
 
 
                 <TextView
@@ -62,91 +55,84 @@
                     android:id="@+id/expertise"
                     android:layout_marginTop="10dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"
                     android:layout_centerHorizontal="true"
                     android:textSize="15dp"/>
             </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-    </android.support.design.widget.AppBarLayout>
-
-
-
-    <ScrollView
-        android:padding="10dp"
-        android:layout_above="@+id/bottom1"
-        android:layout_below="@+id/bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <View
+                android:id="@+id/card_view1"
+                android:layout_below="@+id/card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="#E9E6E6"/>
         <LinearLayout
+            android:background="@drawable/profile_background"
+            android:layout_below="@id/card_view1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
+                android:paddingBottom="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <android.support.v7.widget.CardView
-                    android:padding="10dp"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="0"
+                        android:textAllCaps="true"
+                        android:textColor="#ffff"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="23sp"
+                        android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:text="Mentees"
+                    android:textAllCaps="true"
+                    android:textColor="#ffff"
+                    android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:background="@drawable/profile_background"
+                android:paddingBottom="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="23sp"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_width="wrap_content"
+                        android:text="0"
+                        android:id="@+id/feedbackk_count"
+                        android:textAllCaps="true"
+                        android:textColor="#ffff"
 
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </android.support.v7.widget.RecyclerView>
-                </android.support.v7.widget.CardView>
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:text="Feedbacks"
+                        android:textAllCaps="true"
+                        android:textColor="#ffff"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+        </RelativeLayout>
 
 
 
-    <LinearLayout
-        android:padding="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.CardView
-            android:padding="20dp"
-            android:visibility="gone"
-            android:id="@+id/card_view1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.hsalf.smilerating.SmileRating
-                android:rating="0"
-                android:id="@+id/rating_retrieve"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                app:angryColor="#f29a68"
-                app:drawingColor="#353431"
-                app:normalColor="#f2dd68"
-                app:isIndicator="false"
-                app:placeHolderBackgroundColor="#e6e8ed"
-                app:placeHolderSmileColor="#ffffff"
-                app:textNonSelectionColor="#AEB3B5"
-                app:textSelectionColor="#000000" />
-            <View
-                android:layout_marginTop="80dp"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/colorPrimaryDark"/>
-            <TextView
-                android:padding="10dp"
-                android:id="@+id/comments_retrieve"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="80dp"
-                android:text="Comment Feedback" />
-
-        </android.support.v7.widget.CardView>
-
-    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"

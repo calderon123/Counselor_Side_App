@@ -3,19 +3,7 @@ package com.example.counselor_side_app.models;
 public class UserMentee  {
 
 
-    private String image;
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public UserMentee(String image) {
-        this.image = image;
-    }
+    private String imageURL;
 
     public String getStatus() {
         return status;
@@ -26,14 +14,14 @@ public class UserMentee  {
     }
 
     public String getIdMentee() {
-        return idMentee;
+        return id;
     }
 
     public void setIdMentee(String idMentee) {
-        this.idMentee = idMentee;
+        this.id = idMentee;
     }
 
-    private String idMentee;
+    private String id;
     private String status;
     private String fullname;
     private String email;
@@ -41,13 +29,25 @@ public class UserMentee  {
 
 
 
-    public UserMentee(String fullname, String email,String password) {
+    public UserMentee(String fullname, String email,String password,String imageURL) {
         this.fullname = fullname;
         this.email = email;
 
     }
     public UserMentee(){
 
+    }
+
+    public UserMentee(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getFullname() {

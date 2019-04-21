@@ -29,6 +29,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.counselor_side_app.activities.ReportActivity" />
         <activity android:name="com.example.counselor_side_app.activities.MessageActivity" />
         <activity android:name="com.example.counselor_side_app.activities.MenteeMainActivity" />
         <activity

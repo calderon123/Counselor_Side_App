@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.models.Chat;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,15 +17,16 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
+
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
     public  static final int MSG_TYPE_LEFT = 0;
     public  static final int MSG_TYPE_RIGHT= 1;
-
     private Context mContext;
     private List<Chat> mChat;
     public String imageurl;
-    public TextView text_seen;
+
+
     FirebaseUser firebaseUser;
 
     public MessageAdapter(Context mContext, List<Chat> mChat, String imageurl){
@@ -45,7 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final Chat chat= mChat.get(i);
 
 
@@ -54,7 +56,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
 
-        if (i == mChat.size() -1){
+        if (i == mChat.size()-1){
             if (chat.isIsseen()){
                 viewHolder.txt_seen.setText("Seen");
             }else {
@@ -63,6 +65,19 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }else {
             viewHolder.txt_seen.setVisibility(View.GONE);
         }
+
+        viewHolder.show_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewHolder.txt_seen.getVisibility() == View.GONE) {
+                    viewHolder.txt_seen.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder.txt_seen.setVisibility(View.GONE);
+
+                }
+            }
+
+        });
 
     }
 
@@ -73,8 +88,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView show_message,txt_seen;
+        public TextView show_message;
         public ImageView profile_image;
+        public TextView txt_seen;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

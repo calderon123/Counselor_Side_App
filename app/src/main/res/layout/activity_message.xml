@@ -7,7 +7,8 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:id="@+id/bar_layout"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -33,12 +34,21 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/email"
+                    android:id="@+id/fullname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    android:text="email"
+                    android:text="fullname"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ex"
+                    android:textStyle="bold" />
+
+
             </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -54,14 +64,23 @@
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+    <Button
+        android:id="@+id/schedule"
+        android:text="schedule"
+        android:textSize="10dp"
+        android:background="@drawable/border_schedule"
+        android:layout_alignParentBottom="true"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content" />
     <RelativeLayout
         android:id="@+id/bottom"
+        android:layout_toRightOf="@+id/schedule"
         android:layout_width="match_parent"
-        android:padding="5dp"
+        android:padding="4dp"
         android:background="@color/colorWhite"
         android:layout_alignParentBottom="true"
-
         android:layout_height="wrap_content">
+
         <EditText
             android:layout_toLeftOf="@+id/btn_send"
             android:hint="Type your message....."

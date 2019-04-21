@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.activities.MessageActivity;
 import com.example.counselor_side_app.models.Chat;
@@ -53,10 +54,10 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final Mentees mentees= mUsers.get(i);
-        viewHolder.email.setText(mentees.getEmail());
+
 
 //        if (userMentor.getImage().equals("default")){
-        viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
+
 //        }else{
 //            Glide.with(mContext).load(userMentor.getImage()).into(viewHolder.profile_image);
 //        }
@@ -73,6 +74,12 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 
                         UserMentee user = dataSnapshot.getValue(UserMentee.class);
 
+                        viewHolder.fullname.setText(user.getFullname());
+                        if (viewHolder.profile_image.equals("default")){
+                            viewHolder.profile_image.setImageResource(R.drawable.ic_account_circle_black_24dp);
+                        }else {
+                            Glide.with(mContext).load(user.getImageURL()).into(viewHolder.profile_image);
+                        }
                         viewHolder.bobo(user.getStatus());
                     }
 
@@ -100,7 +107,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView email,last_message;
+        public TextView email,last_message,fullname;
         public CircleImageView profile_image;
         private CircleImageView img_off;
         private CircleImageView img_on;
@@ -110,6 +117,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
             super(itemView);
 
             profile_image = itemView.findViewById(R.id.profile_image);
+            fullname = itemView.findViewById(R.id.fullname);
             email = itemView.findViewById(R.id.email);
             last_message = itemView.findViewById(R.id.last_message);
             img_off = itemView.findViewById(R.id.img_off);

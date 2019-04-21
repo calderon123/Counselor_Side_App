@@ -4,7 +4,7 @@
             "outputFile": "C:\\Users\\xtian\\StudioProjects\\Counselor_App_Final\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pa\\values-pa.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9c96f16b10a523468563a3ca54de9e6a\\res\\values-pa\\values-pa.xml",
+                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-2\\files-2.1\\6128b61b927fe57332157f3479d98168\\res\\values-pa\\values-pa.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,41 +21,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\724a0463ef9f0e298a7bd6b01f7c40c9\\res\\values-pa\\values-pa.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "49",
-                        "startColumns": "4",
-                        "startOffsets": "5699",
-                        "endColumns": "100",
-                        "endOffsets": "5795"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.6.0.aar\\c1e1e189a4a07ca5958f681811fc5097\\res\\values-pa\\values.xml",
+                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-2\\files-2.1\\48871444ec2c679c560c290cb64952aa\\res\\values-pa\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
-                        "startOffsets": "205",
-                        "endColumns": "99",
-                        "endOffsets": "304"
+                        "startOffsets": "247",
+                        "endColumns": "209",
+                        "endOffsets": "456"
                     },
                     "to": {
-                        "startLines": "47",
+                        "startLines": "37",
                         "startColumns": "4",
-                        "startOffsets": "5515",
-                        "endColumns": "103",
-                        "endOffsets": "5614"
+                        "startOffsets": "3929",
+                        "endColumns": "209",
+                        "endOffsets": "4134"
                     }
                 },
                 {
-                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-16.1.0.aar\\1bd2e1be865b784e8ed2fa4969c44a1e\\res\\values-pa\\values.xml",
+                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-2\\files-2.1\\a4281ae32ca038ae8adae70ed1d98f41\\res\\values-pa\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -72,20 +55,37 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.2.0.aar\\6b351beb999fd97462272b44d64f284b\\res\\values-pa\\values.xml",
+                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-2\\files-2.1\\5fc29e48515eecc447b8e29fd55406fd\\res\\values-pa\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "209",
-                        "endOffsets": "456"
+                        "startOffsets": "205",
+                        "endColumns": "99",
+                        "endOffsets": "304"
                     },
                     "to": {
-                        "startLines": "37",
+                        "startLines": "47",
                         "startColumns": "4",
-                        "startOffsets": "3929",
-                        "endColumns": "209",
-                        "endOffsets": "4134"
+                        "startOffsets": "5515",
+                        "endColumns": "103",
+                        "endOffsets": "5614"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-2\\files-2.1\\8ff7edad5fe5c9cc3c03a3073cec6b38\\res\\values-pa\\values-pa.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "49",
+                        "startColumns": "4",
+                        "startOffsets": "5699",
+                        "endColumns": "100",
+                        "endOffsets": "5795"
                     }
                 }
             ]
