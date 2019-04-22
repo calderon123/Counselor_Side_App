@@ -33,8 +33,10 @@ import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.adapters.MessageAdapter;
 import com.example.counselor_side_app.fragments.APIService;
 import com.example.counselor_side_app.models.Chat;
+import com.example.counselor_side_app.models.Counselors;
 import com.example.counselor_side_app.models.Mentees;
 import com.example.counselor_side_app.models.UserMentee;
+import com.example.counselor_side_app.models.UserMentor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -291,7 +293,6 @@ public class MessageActivity extends AppCompatActivity {
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
-        hashMap.put("time_sent",time_sent());
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
         hashMap.put("isseen", false);
@@ -314,11 +315,84 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-    }
+        final String msg = message;
 
-    private String time_sent() {
-        String delegate = "hh:mm aaa";
-        return (String) DateFormat.format(delegate,Calendar.getInstance().getTime());
+        databaseReference = FirebaseDatabase.getInstance().getReference("Add").child(userid)
+                .child("counselor").child(firebaseUser.getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Counselors counselors= dataSnapshot.getValue(Counselors.class);
+
+                FirebaseDatabase.getInstance().getReference("UserMentor").child(counselors.getId())
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                UserMentor userMentor = dataSnapshot.getValue(UserMentor.class);
+                                if (notify) {
+                                    sendNotification(receiver, userMentor.getFullname(), msg);
+                                }
+                                notify = false;
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    private void sendNotification(String receiver, final String fullname, final String message) {
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        final String userid = getIntent().getStringExtra("id");
+        Query query = tokens.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Token token = snapshot.getValue(Token.class);
+
+                    Data data = new Data(firebaseUser.getUid(), R.mipmap.ic_launcher, fullname+": "+message,
+                            "New Message",userid);
+
+                    Sender sender = new Sender(data ,token.getToken());
+
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                                    if (response.code() == 200 ){
+                                        if (response.body().success == 1){
+                                            Toast.makeText(MessageActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                }
+                            });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     private void readMessage(final String myid, final String userid, final String imageUrl){

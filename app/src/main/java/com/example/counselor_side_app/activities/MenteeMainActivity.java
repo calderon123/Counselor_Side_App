@@ -25,6 +25,7 @@ import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.fragments.MenteeListFragment;
 import com.example.counselor_side_app.fragments.MessagesFragment;
 import com.example.counselor_side_app.fragments.ProfileFragments;
+import com.example.counselor_side_app.models.Chat;
 import com.example.counselor_side_app.models.UserMentor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -104,19 +105,40 @@ public class MenteeMainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TabLayout tableLayout = findViewById(R.id.tab_layout);
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        final TabLayout tableLayout = findViewById(R.id.tab_layout);
+        final ViewPager viewPager = findViewById(R.id.view_pager);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+                int unread = 0;
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && !chat.isIsseen()){
+                        unread++;
+                    }
+                }
+                if (unread == 0){
+                    viewPagerAdapter.addFragment(new MessagesFragment(), "Messages");
+                }else {
+                    viewPagerAdapter.addFragment(new MessagesFragment(), "("+unread+")Messages");
+                }
+                viewPagerAdapter.addFragment(new MenteeListFragment(),"Mentee List" );
+                viewPagerAdapter.addFragment(new ProfileFragments(), "Profile");
 
-        viewPagerAdapter.addFragment(new MenteeListFragment(),"Mentee List" );
-        viewPagerAdapter.addFragment(new MessagesFragment(), "Messages");
-        viewPagerAdapter.addFragment(new ProfileFragments(), "Profile");
 
+                viewPager.setAdapter(viewPagerAdapter);
 
-        viewPager.setAdapter(viewPagerAdapter);
+                tableLayout.setupWithViewPager(viewPager);
+            }
 
-        tableLayout.setupWithViewPager(viewPager);
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

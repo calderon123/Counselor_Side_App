@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\xtian\\StudioProjects\\Counselor_App_Final\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
+            "outputFile": "C:\\Users\\NUC-01\\AndroidStudioProjects\\Counselor_Side_App\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-2\\files-2.1\\6128b61b927fe57332157f3479d98168\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\NUC-01\\.gradle\\caches\\transforms-2\\files-2.1\\914ee830d375a85cd90d075c0c06bb98\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\xtian\\.gradle\\caches\\transforms-2\\files-2.1\\cf638ddf1119bfde252e6b8e45b42bee\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\NUC-01\\.gradle\\caches\\transforms-2\\files-2.1\\48cc7bb7a3970a69bec0af7b9e5fc685\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
