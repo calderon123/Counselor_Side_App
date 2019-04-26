@@ -1142,6 +1142,7 @@ drawable ic_search_black_24dp
 drawable ic_send_black_24dp
 drawable image_back
 drawable image_border
+drawable input_back
 drawable met_ic_clear
 drawable mrb_star_border_icon_black_36dp
 drawable mrb_star_icon_black_36dp
@@ -1216,6 +1217,7 @@ id btn_send
 id btn_send_report
 id btn_set_sched
 id btn_upload
+id btn_view_sched
 id buttonPanel
 id cancel_action
 id card_background
@@ -1240,6 +1242,8 @@ id count_counselors
 id custom
 id customPanel
 id dark
+id date
+id date_of_schedule
 id date_schedule
 id decor_content_parent
 id default_activity_button
@@ -1279,6 +1283,7 @@ id glide_custom_view_target_tag
 id gone
 id group_divider
 id groups
+id hide
 id highlight
 id home
 id homeAsUp
@@ -1303,6 +1308,7 @@ id last_message
 id left
 id light
 id line1
+id line2
 id line3
 id listMode
 id list_item
@@ -1417,6 +1423,7 @@ id textinput_error
 id textinput_helper_text
 id time
 id title
+id title1
 id titleDividerNoCustom
 id title_template
 id toolbar
@@ -1433,6 +1440,7 @@ id unlabeled
 id up
 id update_photo
 id useLogo
+id view
 id view_offset_helper
 id view_pager
 id view_schedules
@@ -1544,6 +1552,7 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 layout user_item
+layout view_schedule
 menu mentor_activity_main_drawer
 menu mentor_main
 mipmap background_schedule

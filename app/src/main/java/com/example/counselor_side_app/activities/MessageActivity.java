@@ -20,6 +20,7 @@ import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,13 +62,14 @@ import retrofit2.Response;
 public class MessageActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
-    TextView fullname, email,date_schedule;
+    TextView fullname, email,date_schedule,btn_view_sched,hide;
     Button rate,btn_calendar;
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
     private CalendarView calendarView;
+    LinearLayout line1,line2;
 
-    Button btn_set_sched;
+    Button btn_set_sched,view;
     EditText text_send;
     ImageButton btn_send;
 
@@ -77,6 +79,7 @@ public class MessageActivity extends AppCompatActivity {
     APIService apiService;
     boolean notify = false;
     EditText set_dscrpt;
+    AlertDialog dialog;
     RecyclerView recyclerView;
     ValueEventListener seenListener;
     Intent intent;
@@ -113,13 +116,48 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
+        view = findViewById(R.id.view);
+        hide = findViewById(R.id.hide);
+        line1 = findViewById(R.id.line1);
+        line2 = findViewById(R.id.line2);
+        btn_view_sched = findViewById(R.id.btn_view_sched);
         profile_image = findViewById(R.id.profile_image);
         fullname = findViewById(R.id.fullname);
         email = findViewById(R.id.email);
         btn_send = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.text_send);
         final Button schedule = findViewById(R.id.schedule);
+
+
+        hide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                line1.setVisibility(View.GONE);
+                line2.setVisibility(View.VISIBLE);
+            }
+        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                line1.setVisibility(View.VISIBLE);
+                line2.setVisibility(View.GONE);
+            }
+        });
+
+        btn_view_sched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(MessageActivity.this);
+
+                View view = getLayoutInflater().inflate(R.layout.view_schedule, null);
+
+
+
+                builder.setView(view);
+                AlertDialog  dialog = builder.create();
+                dialog.show();
+            }
+        });
 
 
 
@@ -180,13 +218,15 @@ public class MessageActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(MessageActivity.this, "Can't set empty fields", Toast.LENGTH_SHORT).show();
                         }
-                        text_send.setText("");
+                        date_schedule.setText("");
+                        set_dscrpt.setText("");
                     }
                 });
 
                 builder.setView(view);
-                AlertDialog  dialog = builder.create();
+                  dialog = builder.create();
                 dialog.show();
+
             }
         });
 
@@ -258,6 +298,7 @@ public class MessageActivity extends AppCompatActivity {
         seenMessage(userid);
     }
 
+
     private void setSched(String date_schedule_, String set_dscrpt_) {
         final String userid = getIntent().getStringExtra("id");
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -273,6 +314,8 @@ public class MessageActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(MessageActivity.this, "Meeting schedule setted succesfully" , Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+
                     }
                 });
 

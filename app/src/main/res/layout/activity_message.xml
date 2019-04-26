@@ -55,7 +55,71 @@
 
 
     </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/line2"
+        android:layout_below="@+id/bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/view"
+                android:layout_alignParentRight="true"
+                android:textColor="#111"
+                android:layout_marginRight="0dp"
+                android:layout_centerVertical="true"
+                android:text="View Schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:elevation="6dp"
+        android:id="@+id/line1"
+        android:padding="10dp"
+        android:background="#fff"
+        android:layout_below="@+id/bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="#111"
+            android:layout_centerVertical="true"
+            android:id="@+id/date"
+            android:text="Meeting Schedule : 4/26/2019"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:textColor="#111"
+                android:id="@+id/btn_view_sched"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:text="View Schedule" />
+            <TextView
+                android:textColor="#111"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@id/btn_view_sched"
+                android:layout_centerVertical="true"
+                android:id="@+id/hide"
+                android:text="Hide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/bar_layout"
         android:layout_above="@+id/bottom"
