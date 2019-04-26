@@ -37,6 +37,7 @@ import com.example.counselor_side_app.models.Counselors;
 import com.example.counselor_side_app.models.Mentees;
 import com.example.counselor_side_app.models.UserMentee;
 import com.example.counselor_side_app.models.UserMentor;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -169,16 +170,12 @@ public class MessageActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String date_schedule_ = date_schedule.getText().toString();
                         String set_dscrpt_ = set_dscrpt.getText().toString();
-
+                        
+                        setSched(date_schedule_,set_dscrpt_);
+                        
                         String msg = date_schedule_ +"\n"+ set_dscrpt_;
-
+                        
                         if (!msg.equals("")) {
-                            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    dialog.dismiss();
-                                }
-                            });
                             sendMessage(firebaseUser.getUid(), userid, msg);
                         } else {
                             Toast.makeText(MessageActivity.this, "Can't set empty fields", Toast.LENGTH_SHORT).show();
@@ -192,7 +189,6 @@ public class MessageActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
 
         final String userid = getIntent().getStringExtra("id");
 
@@ -260,6 +256,29 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
         seenMessage(userid);
+    }
+
+    private void setSched(String date_schedule_, String set_dscrpt_) {
+        final String userid = getIntent().getStringExtra("id");
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("mentee_sched_id", firebaseUser.getUid());
+        hashMap.put("counselor_sched_id", userid);
+        hashMap.put("set_dscrpt", set_dscrpt_);
+        hashMap.put("date_sched", date_schedule_);
+
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("Schedules");
+        databaseReference1.push().setValue(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MessageActivity.this, "Meeting schedule setted succesfully" , Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
+
     }
 
     private void seenMessage(final String userid){
