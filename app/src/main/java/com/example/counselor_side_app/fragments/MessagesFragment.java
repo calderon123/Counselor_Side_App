@@ -41,7 +41,7 @@ public class MessagesFragment extends Fragment {
     private List<Mentees> mUsers;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_messages, container, false);
@@ -83,7 +83,7 @@ public class MessagesFragment extends Fragment {
         return  view;
     }
     private void updateToken(String token){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notification");
         Token token1 = new Token(token);
         reference.child(firebaseUser.getUid()).setValue(token1);
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.models.Chat;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,14 +20,14 @@ import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
-    public  static final int MSG_TYPE_LEFT = 0;
-    public  static final int MSG_TYPE_RIGHT= 1;
+    private static final int MSG_TYPE_LEFT = 0;
+    private static final int MSG_TYPE_RIGHT= 1;
     private Context mContext;
     private List<Chat> mChat;
-    public String imageurl;
+    private String imageurl;
 
 
-    FirebaseUser firebaseUser;
+    private FirebaseUser firebaseUser;
 
     public MessageAdapter(Context mContext, List<Chat> mChat, String imageurl){
         this.mChat = mChat;
@@ -52,8 +53,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         viewHolder.show_message.setText(chat.getMessage());
 
+            viewHolder.profile_image.setImageResource(R.drawable.ic_account_circle_black_24dp);
 
-        viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
 
         if (i == mChat.size()-1){
             if (chat.isIsseen()){

@@ -90,24 +90,11 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MessageActivity.this, MenteeMainActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
-
+        
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView1 = findViewById(R.id.rec);
+        recyclerView1 = findViewById(R.id.recycler_view1);
         recyclerView.setHasFixedSize(true);
 
 
@@ -119,14 +106,13 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView1.setLayoutManager(linearLayoutManager1);
 
-
         btn_view_sched = findViewById(R.id.btn_view_sched);
         profile_image = findViewById(R.id.profile_image);
         fullname = findViewById(R.id.fullname);
-        email = findViewById(R.id.email);
+
         btn_send = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.text_send);
-        final Button schedule = findViewById(R.id.schedule);
+        final ImageButton schedule = findViewById(R.id.schedule);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -269,7 +255,6 @@ public class MessageActivity extends AppCompatActivity {
 
                                 UserMentee user = dataSnapshot.getValue(UserMentee.class);
                                 fullname.setText(user.getFullname());
-                                email.setText(user.getEmail());
                                 if (profile_image.equals("default")){
                                     profile_image.setImageResource(R.mipmap.ic_launcher);
                                 }else {

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.adapters.MenteeAdapter;
+import com.example.counselor_side_app.adapters.MenteeListAdapter;
 import com.example.counselor_side_app.models.Mentees;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,7 +32,7 @@ public class MenteeListFragment extends Fragment {
     private FirebaseAuth mAuth;
 
     private RecyclerView add;
-    private MenteeAdapter menteeAdapter;
+    private MenteeListAdapter menteeListAdapter;
     private List<Mentees> mUsers;
 
 
@@ -69,8 +70,8 @@ public class MenteeListFragment extends Fragment {
                     mUsers.add(mentees);
 
                 }
-                menteeAdapter = new MenteeAdapter(getContext(), mUsers ,true);
-                recyclerView.setAdapter(menteeAdapter);
+                menteeListAdapter = new MenteeListAdapter(getContext(), mUsers ,true);
+                recyclerView.setAdapter(menteeListAdapter);
             }
 
             @Override

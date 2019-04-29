@@ -98,6 +98,34 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
                 mContext.startActivity(intent );
             }
         });
+        FirebaseDatabase.getInstance().getReference("Chats")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        int unread = 0;
+                        for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                            Chat chat = snapshot.getValue(Chat.class);
+                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (chat.getSender().equals(mentees.getId())&& chat.getReceiver().equals(firebaseUser.getUid()) && !chat.isIsseen()){
+                                unread++;
+
+                            }
+                        }
+                        if (unread == 0){
+
+                            viewHolder.unread.setVisibility(View.GONE);
+                        }else {
+                            viewHolder.unread.setText(Integer.toString(unread));
+                            viewHolder.unread.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     @Override
@@ -107,7 +135,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView email,last_message,fullname;
+        public TextView email,last_message,fullname,unread;
         public CircleImageView profile_image;
         private CircleImageView img_off;
         private CircleImageView img_on;
@@ -116,6 +144,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            unread = itemView.findViewById(R.id.unread);
             profile_image = itemView.findViewById(R.id.profile_image);
             fullname = itemView.findViewById(R.id.fullname);
             email = itemView.findViewById(R.id.email);
