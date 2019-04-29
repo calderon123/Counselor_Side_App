@@ -121,7 +121,7 @@ public class MessageActivity extends AppCompatActivity {
 
         mSchedules = new ArrayList<>();
         DatabaseReference adding_schedules =   FirebaseDatabase.getInstance().getReference("Schedules")
-                .child(firebaseUser.getUid()).child(userid);
+                .child(userid).child(firebaseUser.getUid());
         adding_schedules.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

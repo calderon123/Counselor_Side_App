@@ -83,7 +83,7 @@ public class MessagesFragment extends Fragment {
         return  view;
     }
     private void updateToken(String token){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notification");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications");
         Token token1 = new Token(token);
         reference.child(firebaseUser.getUid()).setValue(token1);
     }
