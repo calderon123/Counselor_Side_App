@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.models.Chat;
 import com.google.firebase.auth.FirebaseAuth;

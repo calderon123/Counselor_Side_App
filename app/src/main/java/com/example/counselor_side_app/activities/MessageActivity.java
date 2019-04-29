@@ -1,9 +1,7 @@
 package com.example.counselor_side_app.activities;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -32,10 +29,12 @@ import com.example.counselor_side_app.Notification.Sender;
 import com.example.counselor_side_app.Notification.Token;
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.adapters.MessageAdapter;
+import com.example.counselor_side_app.adapters.ScheduleAdapter;
 import com.example.counselor_side_app.fragments.APIService;
 import com.example.counselor_side_app.models.Chat;
 import com.example.counselor_side_app.models.Counselors;
 import com.example.counselor_side_app.models.Mentees;
+import com.example.counselor_side_app.models.Schedules;
 import com.example.counselor_side_app.models.UserMentee;
 import com.example.counselor_side_app.models.UserMentor;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,7 +47,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -60,27 +58,29 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MessageActivity extends AppCompatActivity {
-
     CircleImageView profile_image;
-    TextView fullname, email,date_schedule,btn_view_sched,hide;
+    TextView fullname, email,date_schedule,btn_view_sched,date;
     Button rate,btn_calendar;
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
     private CalendarView calendarView;
     LinearLayout line1,line2;
 
-    Button btn_set_sched,view;
+    Button btn_set_sched;
     EditText text_send;
     ImageButton btn_send;
 
     MessageAdapter messageAdapter;
     List<Chat> mChat;
 
+    ScheduleAdapter scheduleAdapter;
+    List<Schedules> mSchedules;
+
     APIService apiService;
     boolean notify = false;
     EditText set_dscrpt;
     AlertDialog dialog;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView,recyclerView1;
     ValueEventListener seenListener;
     Intent intent;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
@@ -105,21 +105,21 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
-
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-
-
+        recyclerView1 = findViewById(R.id.rec);
+        recyclerView.setHasFixedSize(true);
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        view = findViewById(R.id.view);
-        hide = findViewById(R.id.hide);
-        line1 = findViewById(R.id.line1);
-        line2 = findViewById(R.id.line2);
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView1.setLayoutManager(linearLayoutManager1);
+
+
         btn_view_sched = findViewById(R.id.btn_view_sched);
         profile_image = findViewById(R.id.profile_image);
         fullname = findViewById(R.id.fullname);
@@ -128,37 +128,36 @@ public class MessageActivity extends AppCompatActivity {
         text_send = findViewById(R.id.text_send);
         final Button schedule = findViewById(R.id.schedule);
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        hide.setOnClickListener(new View.OnClickListener() {
+        final String userid = getIntent().getStringExtra("id");
+
+
+        mSchedules = new ArrayList<>();
+        DatabaseReference adding_schedules =   FirebaseDatabase.getInstance().getReference("Schedules")
+                .child(firebaseUser.getUid()).child(userid);
+        adding_schedules.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                line1.setVisibility(View.GONE);
-                line2.setVisibility(View.VISIBLE);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mSchedules.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                Schedules schedules = snapshot.getValue(Schedules.class);
+                if (!(mSchedules ==null) && schedules.getCounselor_sched_id().equals(firebaseUser.getUid())
+                 && schedules.getMentee_sched_id().equals(userid)) {
+                    schedule.setVisibility(View.GONE);
+                    mSchedules.add(schedules);
+                  }else {
+                    schedule.setVisibility(View.VISIBLE);
+                }
+                }
+                scheduleAdapter = new ScheduleAdapter(MessageActivity.this,mSchedules);
+                recyclerView1.setAdapter(scheduleAdapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                line1.setVisibility(View.VISIBLE);
-                line2.setVisibility(View.GONE);
-            }
-        });
-
-        btn_view_sched.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(MessageActivity.this);
-
-                View view = getLayoutInflater().inflate(R.layout.view_schedule, null);
-
-
-
-                builder.setView(view);
-                AlertDialog  dialog = builder.create();
-                dialog.show();
-            }
-        });
-
 
 
         schedule.setOnClickListener(new View.OnClickListener() {
@@ -208,29 +207,27 @@ public class MessageActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String date_schedule_ = date_schedule.getText().toString();
                         String set_dscrpt_ = set_dscrpt.getText().toString();
-                        
-                        setSched(date_schedule_,set_dscrpt_);
-                        
                         String msg = date_schedule_ +"\n"+ set_dscrpt_;
-                        
-                        if (!msg.equals("")) {
+
+                        if (!msg.equals("") && !set_dscrpt_.equals("") && !date_schedule_.equals("")) {
+                            date_schedule.setText("");
+                            set_dscrpt.setText("");
+                            setSched(date_schedule_,set_dscrpt_);
+
                             sendMessage(firebaseUser.getUid(), userid, msg);
                         } else {
-                            Toast.makeText(MessageActivity.this, "Can't set empty fields", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MessageActivity.this,"Can't set empty fields", Toast.LENGTH_SHORT).show();
                         }
-                        date_schedule.setText("");
-                        set_dscrpt.setText("");
+
                     }
                 });
 
                 builder.setView(view);
-                  dialog = builder.create();
+                dialog = builder.create();
                 dialog.show();
 
             }
         });
-
-        final String userid = getIntent().getStringExtra("id");
 
 
 
@@ -303,13 +300,13 @@ public class MessageActivity extends AppCompatActivity {
         final String userid = getIntent().getStringExtra("id");
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("mentee_sched_id", firebaseUser.getUid());
-        hashMap.put("counselor_sched_id", userid);
+        hashMap.put("mentee_sched_id", userid);
+        hashMap.put("counselor_sched_id", firebaseUser.getUid());
         hashMap.put("set_dscrpt", set_dscrpt_);
         hashMap.put("date_sched", date_schedule_);
 
         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("Schedules");
-        databaseReference1.push().setValue(hashMap)
+        databaseReference1.child(firebaseUser.getUid()).child(userid).child(firebaseUser.getUid()).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

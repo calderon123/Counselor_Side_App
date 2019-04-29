@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.example.counselor_side_app.Notification.Token;
 import com.example.counselor_side_app.R;
 import com.example.counselor_side_app.adapters.MenteeAdapter;
-import com.example.counselor_side_app.models.Chat;
 import com.example.counselor_side_app.models.ChatList;
 import com.example.counselor_side_app.models.Mentees;
 import com.google.firebase.auth.FirebaseAuth;

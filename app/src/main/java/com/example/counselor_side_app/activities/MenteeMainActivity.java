@@ -82,7 +82,7 @@ public class MenteeMainActivity extends AppCompatActivity
                    expertise.setText(null);
                }
                  if (userMentor.getImageUrl().equals("default")){
-                    imageView.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
+                    imageView.setImageResource(R.drawable.ic_account_circle_black_24dp);
                 }else {
                      Glide.with(getApplicationContext()).load(userMentor.getImageUrl()).into(imageView);
 

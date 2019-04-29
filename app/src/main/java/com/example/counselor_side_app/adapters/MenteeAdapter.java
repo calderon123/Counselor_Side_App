@@ -37,7 +37,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
     private String user_status;
     String theLastMessage;
 
-    public MenteeAdapter(Context mcontext, List<Mentees> mUsers,boolean ischat){
+    public MenteeAdapter(Context mcontext, List<Mentees> mUsers, boolean ischat){
         this.mContext = mcontext;
         this.mUsers = mUsers;
         this.ischat = ischat;

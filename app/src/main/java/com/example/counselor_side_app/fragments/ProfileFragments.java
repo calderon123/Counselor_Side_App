@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -145,7 +146,8 @@ public class ProfileFragments extends Fragment {
 
         pd.setMessage("Uploading");
         pd.show();
-
+        pd.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         if (imageUri != null){
             final StorageReference fileReference =  storageReference.child(System.currentTimeMillis() + "."+getFileExtension(imageUri));
 
@@ -172,9 +174,11 @@ public class ProfileFragments extends Fragment {
                         map.put("imageURL",mUri);
                         databaseReference.updateChildren(map);
                         pd.dismiss();
+                        pd.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     } else {
                         Toast.makeText(getContext(), "Failed",Toast.LENGTH_SHORT).show();
                         pd.dismiss();
+                        pd.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -182,6 +186,7 @@ public class ProfileFragments extends Fragment {
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     pd.dismiss();
+                    pd.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             });
         }else {
