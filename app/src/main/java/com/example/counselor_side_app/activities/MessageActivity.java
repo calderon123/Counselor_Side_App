@@ -3,6 +3,7 @@ package com.example.counselor_side_app.activities;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -479,6 +480,13 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
     }
+    private void currentUser(String userid){
+        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+
+        editor.putString("currentuser",userid);
+        editor.apply();
+
+    }
 
     private void status(String status){
 
@@ -493,14 +501,17 @@ public class MessageActivity extends AppCompatActivity {
     }
     @Override
     protected void onResume(){
+        final String userid = getIntent().getStringExtra("id");
         super.onResume();
         status("online");
+        currentUser(userid);
     }
     @Override
     protected  void onPause(){
         super.onPause();
         databaseReference.removeEventListener(seenListener);
         status("offline");
+        currentUser("none");
     }
 
 
