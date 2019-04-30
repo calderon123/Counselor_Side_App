@@ -11,6 +11,39 @@ public class UserMentor {
     private String availability;
     private String email;
     private String date_reg;
+    private String address;
+    private String phone_number;
+    private String fb_mail;
+
+    public UserMentor(String address, String phone_number, String fb_mail) {
+        this.address = address;
+        this.phone_number = phone_number;
+        this.fb_mail = fb_mail;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public String getFb_mail() {
+        return fb_mail;
+    }
+
+    public void setFb_mail(String fb_mail) {
+        this.fb_mail = fb_mail;
+    }
 
     public UserMentor(){
 

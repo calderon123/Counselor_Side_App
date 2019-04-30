@@ -1,16 +1,19 @@
 package com.example.counselor_side_app.activities;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -112,7 +115,7 @@ public class MessageActivity extends AppCompatActivity {
 
         btn_send = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.text_send);
-        final ImageButton schedule = findViewById(R.id.schedule);
+        final FloatingActionButton schedule = findViewById(R.id.schedule);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -121,8 +124,9 @@ public class MessageActivity extends AppCompatActivity {
 
         mSchedules = new ArrayList<>();
         DatabaseReference adding_schedules =   FirebaseDatabase.getInstance().getReference("Schedules")
-                .child(userid).child(firebaseUser.getUid());
+                .child(firebaseUser.getUid()).child(userid);
         adding_schedules.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mSchedules.clear();
@@ -157,8 +161,14 @@ public class MessageActivity extends AppCompatActivity {
                 date_schedule = view.findViewById(R.id.date_schedule);
                 set_dscrpt = view.findViewById(R.id.set_dscrpt);
                 btn_set_sched = view.findViewById(R.id.btn_set_sched);
+                TextView close = view.findViewById(R.id.close);
 
-
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 btn_calendar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -248,6 +258,7 @@ public class MessageActivity extends AppCompatActivity {
                 Mentees mentees = dataSnapshot.getValue(Mentees.class);
 
                 FirebaseDatabase.getInstance().getReference("UserMentee").child(mentees.getId())
+                        .child(mentees.getId())
                         .addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -329,6 +340,10 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
+    private String delegate() {
+        String delegate = "hh:mm aaa";
+        return (String) DateFormat.format(delegate,Calendar.getInstance().getTime());
+    }
 
     private  void sendMessage(String sender, final String receiver, String message){
 
@@ -338,7 +353,7 @@ public class MessageActivity extends AppCompatActivity {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
-        hashMap.put("message", message);
+        hashMap.put("message", message +"| time sent :" +delegate());
         hashMap.put("isseen", false);
 
         databaseReference.child("Chats").push().setValue(hashMap);

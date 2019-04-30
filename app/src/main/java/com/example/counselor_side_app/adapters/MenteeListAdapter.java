@@ -52,7 +52,7 @@ public class MenteeListAdapter extends RecyclerView.Adapter<MenteeListAdapter.Vi
         final Mentees mentees = mUsers.get(i);
 
         FirebaseDatabase.getInstance().getReference("UserMentee")
-                .child(mentees.getId()).addValueEventListener(new ValueEventListener() {
+                .child(mentees.getId()).child(mentees.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserMentee userMentee = dataSnapshot.getValue(UserMentee.class);
@@ -74,7 +74,7 @@ public class MenteeListAdapter extends RecyclerView.Adapter<MenteeListAdapter.Vi
             }
         });
 
-        FirebaseDatabase.getInstance().getReference("UserMentee").child(mentees.getId())
+        FirebaseDatabase.getInstance().getReference("UserMentee").child(mentees.getId()).child(mentees.getId())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

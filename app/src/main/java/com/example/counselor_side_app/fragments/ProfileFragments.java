@@ -1,11 +1,13 @@
 package com.example.counselor_side_app.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +15,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,22 +49,44 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragments extends Fragment {
 
-    private TextView fullname,expertise,count_counselors;
+    private TextView fullname,expertise,count_counselors,email,fullname2,address;
     private CircleImageView profile_image;
     private ImageView card_background;
-    private Button update_photo;
+    private Button update_photo,save,cancel;
+    private  RelativeLayout options,top;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
     private int countCounselors = 0;
     StorageReference storageReference;
     private  static final int  IMAGE_REQUEST = 1;
     private Uri imageUri;
+    private ScrollView scroll ,scroll_scroll;
     private StorageTask uploadTask;
+    private View view1,view2,view3,view4;
+    private FloatingActionButton edit;
+    private EditText fullname1_edit,address_edit;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile_fragments, container, false);
+
+        address = view.findViewById(R.id.address);
+        fullname2 = view.findViewById(R.id.fullname2);
+        fullname1_edit = view.findViewById(R.id.fullname1_edit);
+        address_edit = view.findViewById(R.id.address_edit);
+
+
+        scroll_scroll = view.findViewById(R.id.scroll_scroll);
+        scroll = view.findViewById(R.id.scroll);
+        top = view.findViewById(R.id.top);
+        view1 = view.findViewById(R.id.view1);
+        view3 = view.findViewById(R.id.view3);
+        edit = view.findViewById(R.id.edit);
+
 
         profile_image = view.findViewById(R.id.profile_image);
         fullname = view.findViewById(R.id.fullname);
@@ -67,6 +94,10 @@ public class ProfileFragments extends Fragment {
         card_background = view.findViewById(R.id.card_background);
         count_counselors = view.findViewById(R.id.count_counselors);
         update_photo = view.findViewById(R.id.update_photo);
+        email = view.findViewById(R.id.email);
+        options = view.findViewById(R.id.options);
+        save = view.findViewById(R.id.save);
+        cancel = view.findViewById(R.id.cancel);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -102,14 +133,56 @@ public class ProfileFragments extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                UserMentor userMentee = dataSnapshot.getValue(UserMentor.class);
+                final UserMentor userMentor = dataSnapshot.getValue(UserMentor.class);
 
+                fullname2.setText(userMentor.getFullname());
+                address.setText(userMentor.getAddress());
+                fullname.setText(userMentor.getFullname());
+                expertise.setText(userMentor.getExpertise());
+                Glide.with(getContext()).load(userMentor.getImageUrl()).into(card_background);
+                Glide.with(getContext()).load(userMentor.getImageUrl()).into(profile_image);
 
-                assert userMentee != null;
-                fullname.setText(userMentee.getFullname());
-                expertise.setText(userMentee.getExpertise());
-                Glide.with(getContext()).load(userMentee.getImageUrl()).into(card_background);
-                Glide.with(getContext()).load(userMentee.getImageUrl()).into(profile_image);
+                edit.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("RestrictedApi")
+                    @Override
+                    public void onClick(View v) {
+                        top.setVisibility(View.GONE);
+                        scroll.setVisibility(View.GONE);
+                       scroll_scroll.setVisibility(View.VISIBLE);
+                        edit.setVisibility(View.GONE);
+                    }
+                });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("RestrictedApi")
+                    @Override
+                    public void onClick(View v) {
+                        top.setVisibility(View.VISIBLE);
+                        scroll.setVisibility(View.VISIBLE);
+                        scroll_scroll.setVisibility(View.GONE);
+                        edit.setVisibility(View.VISIBLE);
+                    }
+                });
+                address_edit.setText(userMentor.getAddress());
+                fullname1_edit.setText(userMentor.getFullname());
+
+                save.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("RestrictedApi")
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UserMentor")
+                                .child(firebaseUser.getUid());
+                        HashMap<String,Object> hashMap= new HashMap<>();
+
+                        hashMap.put("address", address_edit.getText().toString());
+                        hashMap.put("fullname", fullname1_edit.getText().toString());
+
+                        reference.updateChildren(hashMap);
+                        top.setVisibility(View.VISIBLE);
+                        edit.setVisibility(View.VISIBLE);
+                        scroll.setVisibility(View.VISIBLE);
+                        scroll_scroll.setVisibility(View.GONE);
+                    }
+                });
 
 
             }

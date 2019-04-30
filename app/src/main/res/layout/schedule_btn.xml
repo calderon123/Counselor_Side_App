@@ -1,88 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@mipmap/background_schedule"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffff"
+    app:cardCornerRadius="10dp"
     android:layout_height="350dp">
     <LinearLayout
         android:padding="10dp"
-        android:background="#b999"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <LinearLayout
+        <LinearLayout
 
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <TextView
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="20dp"
-        android:textAlignment="center"
-        android:text="Set Up Schedule"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:id="@+id/bottom1"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/schedule"
-        android:layout_width="match_parent"
-        android:padding="4dp"
-        android:background="@color/colorWhite"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:hint="Date eg. dd/mm/yy"
-            android:layout_centerVertical="true"
-            android:id="@+id/date_schedule"
-            android:background="@android:color/transparent"
+            android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/btn_calendar"
-            android:backgroundTint="#DDD6D6"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:text="Set Up Schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/bottom1"
+            android:layout_below="@+id/textView"
+            android:layout_toRightOf="@+id/schedule"
+            android:layout_width="match_parent"
+            android:padding="4dp"
             android:background="@color/colorWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-           android:text="Calendar"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:id="@+id/bottom"
-        android:layout_below="@+id/bottom1"
-        android:layout_toRightOf="@+id/schedule"
-        android:layout_width="match_parent"
-        android:padding="4dp"
-        android:background="@color/colorWhite"
-        android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:paddingBottom="100dp"
-            android:layout_toLeftOf="@+id/btn_send"
-            android:hint="Description for meet up....."
-            android:layout_centerVertical="true"
-            android:id="@+id/set_dscrpt"
-            android:background="@android:color/transparent"
+            <EditText
+                android:hint="Date eg. dd/mm/yy"
+                android:layout_centerVertical="true"
+                android:id="@+id/date_schedule"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_calendar"
+                android:background="#F44336"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Calendar"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/bottom"
+            android:layout_below="@+id/bottom1"
+            android:layout_toRightOf="@+id/schedule"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:padding="4dp"
+            android:background="@color/colorWhite"
+            android:layout_height="wrap_content">
 
-    </RelativeLayout>
+            <EditText
+                android:paddingBottom="100dp"
+                android:layout_toLeftOf="@+id/btn_send"
+                android:hint="Description for meet up....."
+                android:layout_centerVertical="true"
+                android:id="@+id/set_dscrpt"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <Button
+            android:drawableLeft="@drawable/ic_add_black_24dp"
             android:id="@+id/btn_set_sched"
             android:layout_marginTop="10dp"
-           android:background="@drawable/border_schedule"
+            android:background="#4CAF50"
             android:textStyle="bold"
             android:textSize="10dp"
             android:textColor="#fff"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:paddingRight="10dp"
             android:text="Set Schedule"/>
+            <TextView
+                android:padding="10dp"
+                android:background="#40000000"
+                android:id="@+id/close"
+               android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:textSize="15dp"
+                android:textColor="#F50C0C"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Close"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+</android.support.v7.widget.CardView>

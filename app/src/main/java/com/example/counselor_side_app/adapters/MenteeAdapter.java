@@ -67,6 +67,7 @@ public class MenteeAdapter extends RecyclerView.Adapter<MenteeAdapter.ViewHolder
             viewHolder.last_message.setVisibility(View.GONE);
         }
         FirebaseDatabase.getInstance().getReference("UserMentee").child(mentees.getId())
+                .child(mentees.getId())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

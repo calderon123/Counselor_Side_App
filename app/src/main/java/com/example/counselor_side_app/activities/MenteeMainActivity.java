@@ -14,18 +14,24 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.counselor_side_app.R;
+import com.example.counselor_side_app.adapters.FeedBackAdapter;
 import com.example.counselor_side_app.fragments.MenteeListFragment;
 import com.example.counselor_side_app.fragments.MessagesFragment;
 import com.example.counselor_side_app.fragments.ProfileFragments;
 import com.example.counselor_side_app.models.Chat;
+import com.example.counselor_side_app.models.RateDetails;
 import com.example.counselor_side_app.models.UserMentor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,18 +43,22 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MenteeMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    FeedBackAdapter feedBackAdapter;
+    List<RateDetails> rateDetailsList;
     private MenuItem logout_btn;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     private TextView fullname1,expertise;
+    private CircleImageView imageView,img_on,img_off;
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
-
+    AlertDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,44 +67,9 @@ public class MenteeMainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        changeText();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-         databaseReference = FirebaseDatabase.getInstance().getReference("UserMentor").
-                child(firebaseUser.getUid());
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserMentor userMentor = dataSnapshot.getValue(UserMentor.class);
-
-                fullname1 = findViewById(R.id.fullnam);
-                expertise = findViewById(R.id.expertise);
-                CircleImageView imageView =  findViewById(R.id.imageView);
-
-
-               if (fullname1 != null && expertise != null) {
-                   fullname1.setText(userMentor.getFullname());
-                   expertise.setText(userMentor.getExpertise());
-
-               }else {
-                   fullname1.setText(null);
-                   expertise.setText(null);
-               }
-                 if (userMentor.getImageUrl().equals("default")){
-                    imageView.setImageResource(R.drawable.ic_account_circle_black_24dp);
-                }else {
-                     Glide.with(getApplicationContext()).load(userMentor.getImageUrl()).into(imageView);
-
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -140,6 +115,60 @@ public class MenteeMainActivity extends AppCompatActivity
             }
         });
     }
+    private void changeText() {
+        changeText2();
+    }
+    private void changeText2() {
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("UserMentor").child(firebaseUser.getUid())
+                ;
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserMentor userMentee = dataSnapshot.getValue(UserMentor.class);
+
+
+                img_off = (CircleImageView) findViewById(R.id.img_of);
+                img_on =(CircleImageView) findViewById(R.id.img_o);
+                fullname1 = findViewById(R.id.fullnam);
+                expertise = findViewById(R.id.expertise);
+                imageView = findViewById(R.id.imageView);
+
+                try {
+
+                    if (userMentee.getStatus().equals("online")) {
+                        img_on.setVisibility(View.VISIBLE);
+                        img_off.setVisibility(View.GONE);
+                    } else {
+                        img_on.setVisibility(View.GONE);
+                        img_off.setVisibility(View.GONE);
+                    }
+                    if (fullname1 != null) {
+                        fullname1.setText(userMentee.getFullname());
+                        expertise.setText(userMentee.getEmail());
+                    }
+                    if (userMentee.getImageUrl().equals("default")) {
+                        imageView.setImageResource(R.drawable.ic_account_circle_black_24dp);
+
+                    } else {
+                        Glide.with(getApplicationContext()).load(userMentee.getImageUrl()).into(imageView);
+
+                    }
+                }catch (NullPointerException e){
+                    throw  new IllegalStateException("This is not possible",e);
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -171,6 +200,51 @@ public class MenteeMainActivity extends AppCompatActivity
             startActivity(new Intent(MenteeMainActivity.this, StartActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return true;
+        }if (id == R.id.record) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MenteeMainActivity.this);
+            final View view = getLayoutInflater().inflate(R.layout.my_record, null);
+            final RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            rateDetailsList = new ArrayList<>();
+
+            final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("RateDetails")
+                    .child(firebaseUser.getUid());
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    rateDetailsList.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        RateDetails rateDetails = snapshot.getValue(RateDetails.class);
+                        rateDetailsList.add(rateDetails);
+                    }
+                    feedBackAdapter = new FeedBackAdapter(getApplicationContext(), rateDetailsList);
+                    recyclerView.setAdapter(feedBackAdapter);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            final TextView close = view.findViewById(R.id.close);
+
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            builder.setView(view);
+            dialog = builder.create();
+            dialog.show();
+            return true;
         }
 
         return super.onOptionsItemSelected(item1);
@@ -184,8 +258,6 @@ public class MenteeMainActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.send_report) {
             startActivity(new Intent(MenteeMainActivity.this, ReportActivity.class));
-        }else if (id == R.id.view_schedules){
-
         }else if (id == R.id.logout_btn){
             auth.signOut();
             finish();

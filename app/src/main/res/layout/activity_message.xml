@@ -70,17 +70,6 @@
         android:paddingBottom="5dp"
         android:paddingRight="5dp">
 
-        <ImageButton
-            android:layout_centerVertical="true"
-            android:background="@drawable/border_schedule"
-            android:elevation="10dp"
-            android:src="@drawable/ic_add_circle_outline_black_24dp"
-            android:id="@+id/schedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            tools:targetApi="lollipop"
-            tools:ignore="SmallSp" />
     <RelativeLayout
         android:layout_toRightOf="@+id/schedule"
         android:layout_width="match_parent"
@@ -95,10 +84,12 @@
             android:hint="@string/type_your_message"
             android:layout_centerVertical="true"
             android:id="@+id/text_send"
+            android:paddingStart="5dp"
             android:background="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/btn_send" />
+            android:layout_toStartOf="@+id/btn_send"
+            android:paddingLeft="5dp" />
         <ImageButton
             android:background="@color/colorWhite"
             android:layout_width="40dp"
@@ -114,4 +105,19 @@
         android:id="@+id/recycler_view1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <android.support.design.widget.FloatingActionButton
+        android:backgroundTint="#fff"
+        android:layout_margin="10dp"
+        android:layout_alignParentLeft="true"
+        android:background="#fff"
+        android:layout_above="@+id/bottom"
+        android:elevation="10dp"
+        android:src="@drawable/ic_add_black_24dp"
+        android:id="@+id/schedule"
+        android:foregroundGravity="bottom|left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        tools:targetApi="lollipop"
+        tools:ignore="SmallSp" />
 </RelativeLayout>

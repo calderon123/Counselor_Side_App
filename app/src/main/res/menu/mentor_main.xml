@@ -5,4 +5,8 @@
         android:id="@+id/logout"
         android:title="Log out"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/record"
+        android:title="Feedbacks"
+        app:showAsAction="never" />
 </menu>
