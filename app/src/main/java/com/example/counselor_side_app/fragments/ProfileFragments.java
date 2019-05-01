@@ -132,7 +132,7 @@ public class ProfileFragments extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+            if (isAdded()) {
                 final UserMentor userMentor = dataSnapshot.getValue(UserMentor.class);
 
                 fullname2.setText(userMentor.getFullname());
@@ -148,7 +148,7 @@ public class ProfileFragments extends Fragment {
                     public void onClick(View v) {
                         top.setVisibility(View.GONE);
                         scroll.setVisibility(View.GONE);
-                       scroll_scroll.setVisibility(View.VISIBLE);
+                        scroll_scroll.setVisibility(View.VISIBLE);
                         edit.setVisibility(View.GONE);
                     }
                 });
@@ -171,7 +171,7 @@ public class ProfileFragments extends Fragment {
                     public void onClick(View v) {
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UserMentor")
                                 .child(firebaseUser.getUid());
-                        HashMap<String,Object> hashMap= new HashMap<>();
+                        HashMap<String, Object> hashMap = new HashMap<>();
 
                         hashMap.put("address", address_edit.getText().toString());
                         hashMap.put("fullname", fullname1_edit.getText().toString());
@@ -184,7 +184,7 @@ public class ProfileFragments extends Fragment {
                     }
                 });
 
-
+            }
             }
 
             @Override

@@ -1,8 +1,12 @@
 package com.example.counselor_side_app.adapters;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -18,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.counselor_side_app.R;
+import com.example.counselor_side_app.activities.MessageActivity;
 import com.example.counselor_side_app.models.Schedules;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -93,32 +98,28 @@ public class ScheduleAdapter extends RecyclerView.Adapter <ScheduleAdapter.Sched
         scheduleViewHolder.btn_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
+                final Calendar calendar = Calendar.getInstance();
 
-                DatePickerDialog dialog = new DatePickerDialog(
+                int day  = calendar.get(Calendar.DAY_OF_MONTH -1);
+                int month  = calendar.get(Calendar.MONTH -1);
+                int year  = calendar.get(Calendar.YEAR -1);
+
+               DatePickerDialog datePickerDialog = new DatePickerDialog(
                         mContext,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        onDateSetListener,
-                        year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year , int month, int dayOfMonth) {
+                                Intent intent  = new Intent(mContext, Notification.class);
+
+                                String date = dayOfMonth+ "/"+month +"/"+year ;
+                                scheduleViewHolder.date_schedule_edit.setText(date);
+                            }
+                        }, year, month, day);
+
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.show();
             }
         });
-        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                year = year;
-
-                String date = dayOfMonth + "/" + month + "/" + year;
-
-                scheduleViewHolder.date_schedule_edit.setText(date);
-            }
-        };
-
 
         scheduleViewHolder.date_schedule_edit.setText(schedules.getDate_sched());
         scheduleViewHolder.where_edit.setText(schedules.getSet_dscrpt());
@@ -133,6 +134,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter <ScheduleAdapter.Sched
         scheduleViewHolder.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Schedules").

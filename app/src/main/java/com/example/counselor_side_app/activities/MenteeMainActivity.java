@@ -126,6 +126,7 @@ public class MenteeMainActivity extends AppCompatActivity
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 UserMentor userMentee = dataSnapshot.getValue(UserMentor.class);
 
 
@@ -199,6 +200,7 @@ public class MenteeMainActivity extends AppCompatActivity
             auth.signOut();
             startActivity(new Intent(MenteeMainActivity.this, StartActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
             return true;
         }if (id == R.id.record) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MenteeMainActivity.this);

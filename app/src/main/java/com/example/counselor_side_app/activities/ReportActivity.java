@@ -1,6 +1,7 @@
 package com.example.counselor_side_app.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -41,13 +43,15 @@ public class ReportActivity extends AppCompatActivity {
     private ImageView image;
     private DatabaseReference reference;
     private Uri image_uri;
+    private Toolbar toolbar;
     static int PreqCode =1;
     private  static int REQUESCODE = 1;
+    @SuppressLint("NewApi")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-
+        toolbar = findViewById(R.id.toolbar);
         image = findViewById(R.id.image_uploaded);
         upload_photo = findViewById(R.id.btn_upload);
         btn_send_report = findViewById(R.id.btn_send_report);
@@ -71,7 +75,18 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
 
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         upload_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

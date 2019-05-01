@@ -1,7 +1,11 @@
 package com.example.counselor_side_app.activities;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -51,8 +55,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -79,7 +85,7 @@ public class MessageActivity extends AppCompatActivity {
 
     ScheduleAdapter scheduleAdapter;
     List<Schedules> mSchedules;
-
+    private Toolbar toolbar;
     APIService apiService;
     boolean notify = false;
     EditText set_dscrpt;
@@ -87,7 +93,7 @@ public class MessageActivity extends AppCompatActivity {
     RecyclerView recyclerView,recyclerView1;
     ValueEventListener seenListener;
     Intent intent;
-    private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private DatePickerDialog datePickerDialog;
 
 
     @Override
@@ -96,12 +102,23 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
         
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+        toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView1 = findViewById(R.id.recycler_view1);
         recyclerView.setHasFixedSize(true);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
 
-
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -173,31 +190,30 @@ public class MessageActivity extends AppCompatActivity {
                 btn_calendar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Calendar calendar = Calendar.getInstance();
-                        int day  = calendar.get(Calendar.DAY_OF_MONTH);
-                        int month  = calendar.get(Calendar.MONTH);
-                        int year  = calendar.get(Calendar.YEAR);
+                        final Calendar calendar = Calendar.getInstance();
 
-                        DatePickerDialog dialog = new DatePickerDialog(
-                                MessageActivity.this,
-                                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                                onDateSetListener,
-                                year,month,day);
-                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        dialog.show();
+                        int day  = calendar.get(Calendar.DAY_OF_MONTH -1);
+                        int month  = calendar.get(Calendar.MONTH -1);
+                        int year  = calendar.get(Calendar.YEAR -1);
+
+                       datePickerDialog = new DatePickerDialog(
+                               MessageActivity.this,
+                               new DatePickerDialog.OnDateSetListener() {
+                                   @Override
+                                   public void onDateSet(DatePicker view, int year , int month, int dayOfMonth) {
+
+
+                                       String date = dayOfMonth+ "/"+month +"/"+year ;
+
+                                       date_schedule.setText(date);
+
+                                   }
+                               }, year, month, day);
+
+                       datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                        datePickerDialog.show();
                     }
                 });
-                onDateSetListener  = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth){
-                        month = month +1;
-                        year = year ;
-
-                        String date = dayOfMonth+ "/"+month +"/"+year ;
-
-                        date_schedule.setText(date);
-                    }
-                };
 
                 btn_set_sched.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -210,6 +226,8 @@ public class MessageActivity extends AppCompatActivity {
                             date_schedule.setText("");
                             set_dscrpt.setText("");
                             setSched(date_schedule_,set_dscrpt_);
+
+
 
                             sendMessage(firebaseUser.getUid(), userid, msg);
                         } else {
@@ -259,7 +277,7 @@ public class MessageActivity extends AppCompatActivity {
                 Mentees mentees = dataSnapshot.getValue(Mentees.class);
 
                 FirebaseDatabase.getInstance().getReference("UserMentee").child(mentees.getId())
-                        .child(mentees.getId())
+
                         .addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -307,6 +325,23 @@ public class MessageActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        Calendar calendar  = Calendar.getInstance();
+
+                        calendar.set(Calendar.HOUR_OF_DAY, 11);
+                        calendar.set(Calendar.MINUTE, 00);
+                        calendar.set(Calendar.SECOND, 30);
+
+                        Intent intent  = new Intent(getApplicationContext(),Notification.class);
+
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100,intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT);
+
+                        AlarmManager alarmManager  = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+
+
+
                         Toast.makeText(MessageActivity.this, "Meeting schedule setted succesfully" , Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
 

@@ -64,11 +64,12 @@ public class MessagesFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUserslist.clear();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren() ){
-                    ChatList chatList = snapshot.getValue(ChatList.class);
-                    mUserslist.add(chatList);
+                for (DataSnapshot snapshot: dataSnapshot.getChildren() ) {
+                    if (isAdded()) {
+                        ChatList chatList = snapshot.getValue(ChatList.class);
+                        mUserslist.add(chatList);
+                    }
                 }
-
                 chatList();
             }
 
