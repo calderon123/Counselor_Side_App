@@ -102,6 +102,8 @@
 
     </LinearLayout>
     <RelativeLayout
+        android:visibility="gone"
+        android:layout_centerVertical="true"
         android:id="@+id/progressBar"
         android:background="#ffff"
         android:layout_width="match_parent"

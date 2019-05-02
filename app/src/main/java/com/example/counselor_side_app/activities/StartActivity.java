@@ -1,5 +1,6 @@
 package com.example.counselor_side_app.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -48,6 +49,7 @@ public class StartActivity extends AppCompatActivity {
     private DatabaseReference reference;
     private Uri image_uri;
     static int PreqCode =1;
+    private ProgressDialog dialog;
     static int REQUESCODE = 1;
     private RelativeLayout progressBar;
     @Override
@@ -82,7 +84,7 @@ public class StartActivity extends AppCompatActivity {
                 final EditText email = view.findViewById(R.id.email);
                 final EditText password =view.findViewById(R.id.password);
                 final Button btn_login = view.findViewById(R.id.btn_login);
-                final ProgressBar progressBar = view.findViewById(R.id.progressBar);
+                final RelativeLayout progressBar = view.findViewById(R.id.progressBar);
                 final FirebaseAuth auth = FirebaseAuth.getInstance();
 
                 forgot_password = view.findViewById(R.id.forgot_password);
@@ -107,18 +109,19 @@ public class StartActivity extends AppCompatActivity {
                             Toast.makeText(StartActivity.this,"All fields required!", Toast.LENGTH_SHORT).show();
                         }else {
                             btn_login.setVisibility(View.GONE);
-                            progressBar.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                            progressBar.setVisibility(View.VISIBLE);
+                            dialog = new ProgressDialog(StartActivity.this);
+                            dialog.setMessage("Authenticating...");
+                            dialog.show();
                             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             auth.signInWithEmailAndPassword(txt_email, txt_password)
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                            progressBar.setVisibility(view.GONE);
+                                            dialog.dismiss();
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                             if (task.isSuccessful()){
-                                                Intent intent = new Intent(StartActivity.this, MenteeMainActivity.class);
+                                                Intent intent = new Intent(StartActivity.this, Access.class);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
                                                 finish();
