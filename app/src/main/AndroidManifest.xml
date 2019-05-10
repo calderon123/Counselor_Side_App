@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--suppress ALL -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.counselor_side_app">
@@ -17,10 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activities.OnAprroval"></activity>
         <activity android:name=".activities.ReportActivity" />
-        <receiver android:name=".Notification.Notification"/>
+
+        <receiver android:name=".Notification.Notification" />
+
         <activity android:name=".activities.MessageActivity" />
         <activity android:name=".activities.MenteeMainActivity" />
+        <activity android:name=".activities.RegisterMenteeActivity" />
         <activity android:name=".activities.StartActivity" />
         <activity
             android:name=".activities.ResetPassword"
@@ -33,6 +36,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.Access" />
+
         <service
             android:name=".Notification.MyFirebaseIdService"
             android:enabled="true"

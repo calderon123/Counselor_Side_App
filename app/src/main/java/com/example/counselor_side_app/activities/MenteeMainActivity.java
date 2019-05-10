@@ -64,6 +64,24 @@ public class MenteeMainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mentee_main);
 
+        FirebaseDatabase.getInstance().getReference("UserMentor").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        UserMentor userMentor = dataSnapshot.getValue(UserMentor.class);
+                        if (userMentor.getIsApproved().equals("false")){
+                            startActivity(new Intent(MenteeMainActivity.this,OnAprroval.class));
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -77,8 +95,19 @@ public class MenteeMainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View view = navigationView.getHeaderView(0);
+
+        img_off =  view.findViewById(R.id.img_of);
+        img_on = view.findViewById(R.id.img_o);
+        fullname1 = view.findViewById(R.id.fullnam);
+        expertise = view.findViewById(R.id.expertise);
+        imageView = view.findViewById(R.id.imageView);
 
         final TabLayout tableLayout = findViewById(R.id.tab_layout);
         final ViewPager viewPager = findViewById(R.id.view_pager);
@@ -129,15 +158,6 @@ public class MenteeMainActivity extends AppCompatActivity
 
                 UserMentor userMentee = dataSnapshot.getValue(UserMentor.class);
 
-
-                img_off = (CircleImageView) findViewById(R.id.img_of);
-                img_on =(CircleImageView) findViewById(R.id.img_o);
-                fullname1 = findViewById(R.id.fullnam);
-                expertise = findViewById(R.id.expertise);
-                imageView = findViewById(R.id.imageView);
-
-                try {
-
                     if (userMentee.getStatus().equals("online")) {
                         img_on.setVisibility(View.VISIBLE);
                         img_off.setVisibility(View.GONE);
@@ -156,9 +176,7 @@ public class MenteeMainActivity extends AppCompatActivity
                         Glide.with(getApplicationContext()).load(userMentee.getImageUrl()).into(imageView);
 
                     }
-                }catch (NullPointerException e){
-                    throw  new IllegalStateException("This is not possible",e);
-                }
+
             }
 
 
@@ -197,6 +215,8 @@ public class MenteeMainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {
+            FirebaseDatabase.getInstance().getReference("UserMentor")
+                    .child(firebaseUser.getUid()).child("status").setValue("offline");
             auth.signOut();
             startActivity(new Intent(MenteeMainActivity.this, StartActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -261,6 +281,9 @@ public class MenteeMainActivity extends AppCompatActivity
         if (id == R.id.send_report) {
             startActivity(new Intent(MenteeMainActivity.this, ReportActivity.class));
         }else if (id == R.id.logout_btn){
+
+            FirebaseDatabase.getInstance().getReference("UserMentor")
+                    .child(firebaseUser.getUid()).child("status").setValue("offline");
             auth.signOut();
             finish();
             startActivity(new Intent(MenteeMainActivity.this, StartActivity.class));
@@ -315,9 +338,8 @@ public class MenteeMainActivity extends AppCompatActivity
         }
       }
     private void status(String status){
-
-        DatabaseReference databaseReference  =
-                FirebaseDatabase.getInstance().getReference("UserMentor").
+        UserMentor userMentor = null;
+        databaseReference  = FirebaseDatabase.getInstance().getReference("UserMentor").
                 child(firebaseUser.getUid());
 
         HashMap<String,Object> hashMap= new HashMap<>();
@@ -336,4 +358,6 @@ public class MenteeMainActivity extends AppCompatActivity
         super.onPause();
         status("offline");
     }
+
+
 }

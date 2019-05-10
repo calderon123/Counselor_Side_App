@@ -14,6 +14,15 @@ public class UserMentor {
     private String address;
     private String phone_number;
     private String fb_mail;
+    private String isApproved;
+
+    public UserMentor(String isApproved) {
+        this.isApproved = isApproved;
+    }
+
+    public String getIsApproved() {
+        return isApproved;
+    }
 
     public UserMentor(String address, String phone_number, String fb_mail) {
         this.address = address;

@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class MenteeListAdapter extends RecyclerView.Adapter<MenteeListAdapter.Vi
                 if (userMentee.getImageURL().equals("default")){
                     viewHolder.profile_image.setImageResource(R.mipmap.ic_launcher);
                 }else{
-                    Glide.with(mContext).load(userMentee.getImageURL()).into(viewHolder.profile_image);
+                    Picasso.get().load(userMentee.getImageURL()).into(viewHolder.profile_image);
                 }
 
             }

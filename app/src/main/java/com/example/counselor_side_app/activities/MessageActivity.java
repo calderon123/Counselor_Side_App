@@ -54,6 +54,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.security.Timestamp;
 import java.util.ArrayList;
@@ -288,7 +289,7 @@ public class MessageActivity extends AppCompatActivity {
                                 if (profile_image.equals("default")){
                                     profile_image.setImageResource(R.mipmap.ic_launcher);
                                 }else {
-                                    Glide.with(MessageActivity.this).load(user.getImageURL()).into(profile_image);
+                                    Picasso.get().load(user.getImageURL()).into(profile_image);
                                 }
 
                             }

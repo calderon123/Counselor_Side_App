@@ -14,4 +14,26 @@
     <string name="update_photo">Update Photo</string>
     <string name="fullname">Fullname</string>
     <string name="type_your_message">Type your message.....</string>
+
+
+    <string name="expertise">Choose a country</string>
+
+    <string-array name="expertise_arrays">
+        <item>Mental Health Counselor</item>
+        <item>Educational Counselor</item>
+        <item>Marriage Counselor</item>
+    </string-array>
+    <string name="availability">Choose a country</string>
+
+    <string-array name="availability_arrays">
+        <item>Once a week</item>
+        <item>Twice a week</item>
+    </string-array>
+
+    <string name="rate">Choose a country</string>
+
+    <string-array name="rate_arrays">
+        <item>500-1000/hour</item>
+        <item>500-1500/hour</item>
+    </string-array>
 </resources>

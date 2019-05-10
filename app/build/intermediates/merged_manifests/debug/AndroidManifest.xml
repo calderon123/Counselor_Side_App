@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- suppress ALL -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.counselor_side_app"
     android:versionCode="1"
@@ -31,12 +30,14 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.counselor_side_app.activities.OnAprroval" />
         <activity android:name="com.example.counselor_side_app.activities.ReportActivity" />
 
         <receiver android:name="com.example.counselor_side_app.Notification.Notification" />
 
         <activity android:name="com.example.counselor_side_app.activities.MessageActivity" />
         <activity android:name="com.example.counselor_side_app.activities.MenteeMainActivity" />
+        <activity android:name="com.example.counselor_side_app.activities.RegisterMenteeActivity" />
         <activity android:name="com.example.counselor_side_app.activities.StartActivity" />
         <activity
             android:name="com.example.counselor_side_app.activities.ResetPassword"
@@ -179,6 +180,11 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <provider
+            android:name="com.squareup.picasso.PicassoProvider"
+            android:authorities="com.example.counselor_side_app.com.squareup.picasso"
+            android:exported="false" />
     </application>
 
 </manifest>

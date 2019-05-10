@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.RegisterMenteeActivity">
+    <ImageView
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/blur"/>
+    <RelativeLayout
+        android:background="#4000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <android.support.v7.widget.Toolbar
+        app:titleTextColor="@color/colorWhite"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:popupTheme="@style/MenuStyle"/>
+    <ScrollView
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:gravity="center_horizontal"
+            android:padding="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="#ffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:fontFamily="casual"
+                android:text="Create an Account" />
+
+
+            <android.support.design.widget.TextInputLayout
+                android:hint="Fullname"
+                android:textColorHint="#ffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:background="@drawable/input_register"
+                    android:paddingBottom="15dp"
+                    android:paddingStart="5dp"
+                    android:paddingTop="20dp"
+                    android:textColor="#ffff"
+                    android:id="@+id/fullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+                <Spinner
+
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/input_register"
+                    android:paddingBottom="20dp"
+                    android:paddingStart="5dp"
+                    android:paddingTop="20dp"
+                    android:entries="@array/expertise_arrays"
+                    android:prompt="@string/expertise"
+                    android:textColor="#ECE6E6"
+                    android:id="@+id/expertise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp" />
+            <Spinner
+
+                android:layout_marginTop="20dp"
+                android:background="@drawable/input_register"
+                android:paddingBottom="20dp"
+                android:paddingStart="5dp"
+                android:paddingTop="20dp"
+                android:entries="@array/availability_arrays"
+                android:prompt="@string/availability"
+                android:textColor="#ECE6E6"
+                android:id="@+id/availability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp" />
+            <Spinner
+
+                android:layout_marginTop="20dp"
+                android:background="@drawable/input_register"
+                android:paddingBottom="20dp"
+                android:paddingStart="5dp"
+                android:paddingTop="20dp"
+                android:entries="@array/rate_arrays"
+                android:prompt="@string/rate"
+                android:textColor="#ECE6E6"
+                android:id="@+id/rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp" />
+
+
+            <android.support.design.widget.TextInputLayout
+                android:hint="Email"
+                android:textColorHint="#ffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:background="@drawable/input_register"
+                    android:paddingBottom="15dp"
+                    android:paddingStart="5dp"
+                    android:paddingTop="20dp"
+                    android:inputType="textEmailAddress"
+                    android:textColor="#ffff"
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:hint="Password"
+                android:textColorHint="#ffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:background="@drawable/input_register"
+                    android:paddingBottom="15dp"
+                    android:paddingStart="5dp"
+                    android:paddingTop="20dp"
+                    android:textColor="#ffff"
+                    android:id="@+id/password"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:hint="Confirm Password"
+                android:textColorHint="#ffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:inputType="textPassword"
+                    android:background="@drawable/input_register"
+                    android:paddingBottom="15dp"
+                    android:paddingStart="5dp"
+                    android:paddingTop="20dp"
+                    android:textColor="#ffff"
+                    android:id="@+id/confirmpassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_register"
+                android:text="Register"
+                android:paddingLeft="20dp"
+                android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+                android:background="@drawable/btn_login"
+                android:textColor="#fff"
+                android:layout_marginTop="20dp"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+        <LinearLayout
+            android:id="@+id/line1"
+            android:background="#4000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <ProgressBar
+        android:layout_marginTop="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:id="@+id/progressing"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

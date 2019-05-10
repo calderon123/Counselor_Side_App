@@ -27,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -117,13 +118,15 @@ public class MenteeListFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 if (search.getText().toString().equals("")) {
                     mUsers.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Mentees mentees = snapshot.getValue(Mentees.class);
+                        if (isAdded()) {
+                            Mentees mentees = snapshot.getValue(Mentees.class);
 
-                        mUsers.add(mentees);
-
+                            mUsers.add(mentees);
+                        }
                     }
                     menteeListAdapter = new MenteeListAdapter(getContext(), mUsers, true);
                     recyclerView.setAdapter(menteeListAdapter);
@@ -136,4 +139,5 @@ public class MenteeListFragment extends Fragment {
         });
 
     }
+
 }

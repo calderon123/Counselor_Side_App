@@ -23,7 +23,7 @@ public class Access extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent=new Intent(getApplicationContext(), MenteeMainActivity.class);
+                Intent intent=new Intent(Access.this, OnAprroval.class);
                 startActivity(intent);
                 finish();
             }

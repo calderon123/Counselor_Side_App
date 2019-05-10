@@ -23,13 +23,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.counselor_side_app.R;
+import com.example.counselor_side_app.models.UserMentor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 @SuppressWarnings("ALL")
@@ -52,8 +57,10 @@ public class StartActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     static int REQUESCODE = 1;
     private RelativeLayout progressBar;
+
     @Override
     protected void onStart() {
+
         super.onStart();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -72,7 +79,7 @@ public class StartActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(getApplicationContext());
 
         login = findViewById(R.id.login);
-
+        btn_register = findViewById(R.id.btn_register);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,8 +94,8 @@ public class StartActivity extends AppCompatActivity {
                 final RelativeLayout progressBar = view.findViewById(R.id.progressBar);
                 final FirebaseAuth auth = FirebaseAuth.getInstance();
 
-                forgot_password = view.findViewById(R.id.forgot_password);
 
+                forgot_password = view.findViewById(R.id.forgot_password);
 
                 forgot_password.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -121,11 +128,10 @@ public class StartActivity extends AppCompatActivity {
                                             dialog.dismiss();
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                             if (task.isSuccessful()){
-                                                Intent intent = new Intent(StartActivity.this, Access.class);
+                                                Intent intent = new Intent(StartActivity.this, MenteeMainActivity.class);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
                                                 finish();
-
                                             }else{
                                                 btn_login.setVisibility(View.VISIBLE);
                                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -142,6 +148,15 @@ public class StartActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Animation animRotate = AnimationUtils.loadAnimation(StartActivity.this, R.anim.bganim);
+                btn_register.startAnimation(animRotate);
+                startActivity(new Intent(StartActivity.this, RegisterMenteeActivity.class));
+            }
+        });
+
 
     }
 
