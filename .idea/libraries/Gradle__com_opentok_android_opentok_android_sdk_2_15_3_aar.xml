@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.opentok.android:opentok-android-sdk:2.15.3@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/260d446edc4d796c5adcd9f22e20ec1f/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/260d446edc4d796c5adcd9f22e20ec1f/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
